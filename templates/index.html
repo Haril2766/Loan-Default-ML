@@ -1,57 +1,70 @@
 {% extends "base.html" %}
-{% set title = "RiskLens • Financial Risk Analysis" %}
+{% set title = "RiskLens • Financial Risk Assessment" %}
 
 {% block content %}
 <section class="heroWrap">
   <div class="container">
-    <div class="row g-4">
+    <div class="row">
 
-      <div class="col-lg-6">
-        <div class="heroCard">
-          <div class="pill">AI Financial Advisor</div>
-          <h1 class="heroTitle">Financial Risk Assessment</h1>
-          <p class="heroText">
-            Analyze applicant financial risk using credit health,
-            income stability, and debt ratios.
-          </p>
-        </div>
+      <!-- LEFT : HERO CONTENT -->
+      <div class="heroCard">
+        <div class="pill">AI Financial Advisor</div>
+
+        <h1 class="heroTitle">
+          Smarter Financial Risk<br>
+          Decisions with AI
+        </h1>
+
+        <p class="heroText">
+          RiskLens is an AI-powered financial risk assessment platform designed
+          to evaluate applicant profiles using credit behavior, income stability,
+          and debt exposure — all in real time.
+        </p>
+
+        <p class="heroText" style="margin-top:22px;">
+          • Identify potential approval risks before decisions are made<br>
+          • Analyze credit health, income balance, and repayment capacity<br>
+          • Support responsible, data-driven financial decisions
+        </p>
+
+        <p class="heroText" style="margin-top:26px; font-size:.9rem; opacity:.8;">
+          Built using machine learning models trained on real-world financial patterns
+          to deliver accurate and explainable insights.
+        </p>
       </div>
 
-      <div class="col-lg-6">
-        <div class="glassCard">
+      <!-- RIGHT : FORM -->
+      <div class="glassCard">
+        <form action="/predict" method="POST">
 
-          {% if error %}
-            <div class="alert alert-danger">{{ error }}</div>
-          {% endif %}
+          <div class="row" style="grid-template-columns:1fr 1fr; gap:22px;">
 
-          <form method="POST" action="/predict" class="row g-3">
-
-            <div class="col-md-6">
+            <div>
               <label class="form-label">Age</label>
               <input class="form-control" name="Age" required>
             </div>
 
-            <div class="col-md-6">
+            <div>
               <label class="form-label">Income</label>
               <input class="form-control" name="Income" required>
             </div>
 
-            <div class="col-md-6">
+            <div>
               <label class="form-label">Loan Amount</label>
               <input class="form-control" name="LoanAmount" required>
             </div>
 
-            <div class="col-md-6">
+            <div>
               <label class="form-label">Credit Score</label>
               <input class="form-control" name="CreditScore" required>
             </div>
 
-            <div class="col-md-6">
+            <div>
               <label class="form-label">DTI Ratio</label>
               <input class="form-control" name="DTIRatio" placeholder="0.35" required>
             </div>
 
-            <div class="col-md-6">
+            <div>
               <label class="form-label">Education</label>
               <select class="form-select" name="Education" required>
                 {% for e in education_options %}
@@ -60,7 +73,7 @@
               </select>
             </div>
 
-            <div class="col-12">
+            <div>
               <label class="form-label">Employment Type</label>
               <select class="form-select" name="EmploymentType" required>
                 {% for e in employment_options %}
@@ -69,13 +82,12 @@
               </select>
             </div>
 
-            <div class="col-12 d-grid">
-              <button class="btn btnGlow">Analyze Risk</button>
+            <div style="display:flex; align-items:flex-end;">
+              <button class="btnGlow" style="width:100%;">Analyze Risk</button>
             </div>
 
-          </form>
-
-        </div>
+          </div>
+        </form>
       </div>
 
     </div>
