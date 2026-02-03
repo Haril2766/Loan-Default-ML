@@ -5,55 +5,80 @@
 <section class="heroWrap">
   <div class="container">
 
-    <div class="glassCard resultCard">
+    <!-- STATUS CARD -->
+    <div class="glassCard resultHero">
 
-      <!-- RESULT HEADER -->
-      <div class="resultHeader">
-        <span class="pill">Risk Summary</span>
+      <span class="pill">Risk Assessment Result</span>
 
-        {% if "Approved" in status %}
-          <h1 class="resultTitle approved">Approved ✅</h1>
-        {% else %}
-          <h1 class="resultTitle rejected">Rejected ❌</h1>
-        {% endif %}
-
-        {% if confidence %}
-          <p class="confidence">
-            Confidence Level: <b>{{ confidence }}%</b>
-          </p>
-        {% endif %}
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- DETAILS GRID -->
-      <div class="resultGrid">
-        <div class="kv"><span>Age</span><b>{{ age }}</b></div>
-        <div class="kv"><span>Income</span><b>{{ income }}</b></div>
-        <div class="kv"><span>Loan Amount</span><b>{{ loan_amount }}</b></div>
-        <div class="kv"><span>Credit Score</span><b>{{ credit_score }}</b></div>
-        <div class="kv"><span>DTI Ratio</span><b>{{ dti }}</b></div>
-        <div class="kv"><span>Education</span><b>{{ education }}</b></div>
-        <div class="kv wide"><span>Employment Type</span><b>{{ employment }}</b></div>
-      </div>
-
-      <!-- RISK FACTORS -->
-      {% if hints %}
-      <div class="riskBox">
-        <h3>Risk Factors Identified</h3>
-        <ul>
-          {% for h in hints %}
-            <li>{{ h }}</li>
-          {% endfor %}
-        </ul>
-      </div>
+      {% if "Approved" in status %}
+        <h1 class="resultStatus approved">Approved</h1>
+        <p class="resultSub">This applicant meets the model’s approval criteria.</p>
+      {% else %}
+        <h1 class="resultStatus rejected">Rejected</h1>
+        <p class="resultSub">Risk factors exceed acceptable thresholds.</p>
       {% endif %}
 
-      <!-- ACTION -->
-      <div class="resultActions">
-        <a href="/" class="btnGlow">Run Another Analysis</a>
+      {% if confidence %}
+        <div class="confidenceBar">
+          <div class="confidenceFill" style="width: {{ confidence }}%"></div>
+        </div>
+        <div class="confidenceText">
+          Model Confidence: <b>{{ confidence }}%</b>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <!-- METRICS -->
+    <div class="resultMetrics">
+
+      <div class="metric">
+        <span>Age</span>
+        <b>{{ age }}</b>
       </div>
 
+      <div class="metric">
+        <span>Income</span>
+        <b>{{ income }}</b>
+      </div>
+
+      <div class="metric">
+        <span>Loan Amount</span>
+        <b>{{ loan_amount }}</b>
+      </div>
+
+      <div class="metric">
+        <span>Credit Score</span>
+        <b>{{ credit_score }}</b>
+      </div>
+
+      <div class="metric">
+        <span>DTI Ratio</span>
+        <b>{{ dti }}</b>
+      </div>
+
+      <div class="metric">
+        <span>Employment</span>
+        <b>{{ employment }}</b>
+      </div>
+
+    </div>
+
+    <!-- INSIGHTS -->
+    {% if hints %}
+    <div class="glassCard insightCard">
+      <h3>Risk Insights</h3>
+      <ul>
+        {% for h in hints %}
+          <li>{{ h }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- CTA -->
+    <div class="resultCTA">
+      <a href="/" class="btnGlow btn-lg">Run Another Analysis</a>
     </div>
 
   </div>
