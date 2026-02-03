@@ -5,35 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ title if title else "RiskLens • AI Financial Risk Advisor" }}</title>
 
+  <!-- Main Theme CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-<nav class="topbar">
-  <div class="container navWrap">
-    <a class="brand" href="/">
-      <span class="brandDot"></span>
-      <span>RiskLens</span>
-    </a>
+  <!-- NAVBAR -->
+  <nav class="topbar">
+    <div class="navWrap">
+      <a class="brand" href="/">
+        <span class="brandDot"></span>
+        <span>RiskLens</span>
+      </a>
 
-    <div class="navlinks">
-      <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
-      <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
-      <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Feedback</a>
+      <div class="navlinks">
+        <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
+        <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
+        <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Feedback</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<main class="page">
-  {% block content %}{% endblock %}
-</main>
+  <!-- PAGE CONTENT -->
+  <main class="page">
+    {% block content %}
+    {% endblock %}
+  </main>
 
-<footer class="footer">
-  <div class="container">
+  <!-- FOOTER -->
+  <footer class="footer">
     © 2026 • RiskLens • AI-Powered Financial Insights
-  </div>
-</footer>
+  </footer>
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <!-- Main JS -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
