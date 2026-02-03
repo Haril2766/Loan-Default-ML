@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ title if title else "RiskLens • AI Financial Risk Advisor" }}</title>
 
-  <!-- Main Theme CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- HEADER / NAVBAR -->
   <nav class="topbar">
     <div class="navWrap">
       <a class="brand" href="/">
@@ -28,8 +27,7 @@
 
   <!-- PAGE CONTENT -->
   <main class="page">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
   </main>
 
   <!-- FOOTER -->
@@ -37,7 +35,6 @@
     © 2026 • RiskLens • AI-Powered Financial Insights
   </footer>
 
-  <!-- Main JS -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
