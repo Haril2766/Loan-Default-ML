@@ -34,15 +34,15 @@ body{
   position:sticky;
   top:0;
   z-index:50;
-  backdrop-filter: blur(20px);
-  background:rgba(5,7,15,.7);
+  backdrop-filter: blur(22px);
+  background:rgba(5,7,15,.75);
   border-bottom:1px solid var(--border);
 }
 
 .navWrap{
   max-width:1400px;
   margin:auto;
-  padding:22px 32px;        /* ⬅ BIGGER HEADER */
+  padding:30px 40px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -51,44 +51,54 @@ body{
 .brand{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:16px;
   font-weight:1000;
-  font-size:1.35rem;       /* ⬅ BIGGER LOGO */
-  letter-spacing:.6px;
+  font-size:1.7rem;
+  letter-spacing:.8px;
   color:#fff;
   text-decoration:none;
+  text-shadow:
+    0 0 20px rgba(124,124,255,.45),
+    0 0 40px rgba(34,211,238,.25);
 }
 
 .brandDot{
-  width:14px;
-  height:14px;
+  width:16px;
+  height:16px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--neon1),var(--neon2));
   box-shadow:
     0 0 20px var(--neon1),
-    0 0 40px rgba(124,124,255,.6);
+    0 0 50px rgba(124,124,255,.8),
+    0 0 90px rgba(34,211,238,.6);
 }
 
 .navlinks a{
-  margin-left:28px;
+  margin-left:34px;
   text-decoration:none;
   color:var(--soft);
-  font-size:1rem;
+  font-size:1.1rem;
+  font-weight:600;
   position:relative;
 }
 
-.navlinks a.active,
-.navlinks a:hover{
+.navlinks a:hover,
+.navlinks a.active{
   color:#fff;
 }
 
 .navlinks a.active::after{
   content:"";
   position:absolute;
-  left:0; right:0; bottom:-10px;
-  height:3px;
-  border-radius:4px;
+  left:0;
+  right:0;
+  bottom:-14px;
+  height:4px;
+  border-radius:6px;
   background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  box-shadow:
+    0 0 20px rgba(124,124,255,.8),
+    0 0 40px rgba(34,211,238,.6);
 }
 
 /* ================= LAYOUT ================= */
@@ -97,7 +107,7 @@ body{
 }
 
 .heroWrap{
-  padding:110px 0 140px;    /* ⬅ BIG HERO SPACE */
+  padding:110px 0 140px;
 }
 
 .container{
@@ -109,7 +119,7 @@ body{
 .row{
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:72px;               /* ⬅ MORE AIR */
+  gap:72px;
   align-items:center;
 }
 
@@ -132,14 +142,12 @@ body{
   background:rgba(124,124,255,.2);
   color:#dbeafe;
   font-weight:700;
-  letter-spacing:.3px;
 }
 
 .heroTitle{
   margin-top:20px;
-  font-size:clamp(42px,6vw,72px);   /* ⬅ BIG TITLE */
+  font-size:clamp(42px,6vw,72px);
   font-weight:1000;
-  letter-spacing:-1px;
   line-height:1.1;
 }
 
@@ -167,7 +175,6 @@ body{
   background:rgba(255,255,255,.08);
   border:1px solid var(--border);
   color:#fff;
-  font-size:1rem;
 }
 
 .form-control:focus,
@@ -183,8 +190,7 @@ body{
   padding:18px;
   border:none;
   border-radius:22px;
-  background:
-    linear-gradient(135deg,var(--neon1),var(--neon2));
+  background:linear-gradient(135deg,var(--neon1),var(--neon2));
   color:#fff;
   font-weight:900;
   font-size:1.05rem;
