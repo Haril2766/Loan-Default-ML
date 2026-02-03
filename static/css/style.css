@@ -312,44 +312,11 @@ input:-webkit-autofill:focus{
 
 
 /* ===============================
-   FIX SELECT DROPDOWN (OPTIONS)
-   =============================== */
-
-/* Dropdown menu background */
-select {
-  background-color: rgba(25,28,45,1) !important;
-  color: #ffffff !important;
-}
-
-/* Options inside dropdown */
-select option {
-  background-color: #0f1328 !important;
-  color: #ffffff !important;
-}
-
-/* Hovered option */
-select option:hover {
-  background-color: #1e40af !important;
-  color: #ffffff !important;
-}
-
-/* Selected option */
-select option:checked {
-  background-color: #2563eb !important;
-  color: #ffffff !important;
-}
-
-/* Firefox fix */
-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #ffffff;
-}
-
-/* ===============================
    RESPONSIVE
    =============================== */
 @media(max-width:992px){
   .heroWrap{ padding:40px 0; }
   .heroTitle{ font-size:36px; }
 }
+
 
