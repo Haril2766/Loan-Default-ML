@@ -2,39 +2,41 @@
 {% set title = "LoanSense • Result" %}
 
 {% block content %}
-<section class="result-card">
+<section class="heroWrap">
+  <div class="container">
+    <div class="glassCard">
 
-  <h1 class="status">{{ status }}</h1>
+      <div class="pill">Prediction Result</div>
+      <h2 class="heroTitle mt-2">{{ status }}</h2>
 
-  {% if confidence %}
-    <div class="confidence">
-      Confidence Score
-      <span>{{ confidence }}%</span>
+      {% if confidence %}
+        <div class="text-soft">Confidence: <b>{{ confidence }}%</b></div>
+      {% endif %}
+
+      <div class="grid2 mt-4">
+        <div class="kv"><div class="k">Age</div><div class="v">{{ age }}</div></div>
+        <div class="kv"><div class="k">Income</div><div class="v">{{ income }}</div></div>
+        <div class="kv"><div class="k">Loan</div><div class="v">{{ loan_amount }}</div></div>
+        <div class="kv"><div class="k">Credit</div><div class="v">{{ credit_score }}</div></div>
+        <div class="kv"><div class="k">DTI</div><div class="v">{{ dti }}</div></div>
+      </div>
+
+      {% if hints %}
+      <div class="hintBox mt-4">
+        <div class="hintTitle">Helpful Hints</div>
+        <ul>
+          {% for h in hints %}
+            <li>{{ h }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="mt-4">
+        <a class="btn btnGlow" href="/">Try Again</a>
+      </div>
+
     </div>
-  {% endif %}
-
-  <div class="metrics">
-    <div><label>Age</label>{{ age }}</div>
-    <div><label>Income</label>{{ income }}</div>
-    <div><label>Loan</label>{{ loan_amount }}</div>
-    <div><label>Credit</label>{{ credit_score }}</div>
-    <div><label>DTI</label>{{ dti }}</div>
-    <div><label>Education</label>{{ education }}</div>
-    <div><label>Employment</label>{{ employment }}</div>
   </div>
-
-  {% if hints %}
-    <div class="hints">
-      <h3>Risk Signals</h3>
-      <ul>
-        {% for h in hints %}
-          <li>{{ h }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
-
-  <a class="secondary" href="/">Run Another Prediction</a>
-
 </section>
 {% endblock %}
