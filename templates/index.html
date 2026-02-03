@@ -1,57 +1,79 @@
 {% extends "base.html" %}
-{% set title = "LoanSense • AI Prediction" %}
+{% set title = "LoanSense • Predict" %}
 
 {% block content %}
-<section class="grid">
+<section class="heroWrap">
+  <div class="container">
+    <div class="row g-4">
 
-  <!-- LEFT PANEL -->
-  <div class="panel">
-    <h1>Loan Approval Prediction</h1>
-    <p class="subtitle">
-      AI-driven risk analysis with confidence scoring and insights.
-    </p>
+      <div class="col-lg-6">
+        <div class="heroCard">
+          <div class="pill">AI-Powered • Fast • Clean</div>
+          <h1 class="heroTitle">Loan Approval Prediction</h1>
+          <p class="heroText">
+            Enter applicant details and get an instant ML-based decision with confidence and hints.
+          </p>
 
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
+          <div class="microTips">
+            <div class="microTip">✔ Credit score matters</div>
+            <div class="microTip">✔ Lower DTI is safer</div>
+            <div class="microTip">✔ Stable income helps</div>
+          </div>
+        </div>
+      </div>
 
-    <form method="POST" action="/predict" class="form">
-      <input name="Age" placeholder="Age" required>
-      <input name="Income" placeholder="Monthly Income" required>
-      <input name="LoanAmount" placeholder="Loan Amount" required>
-      <input name="CreditScore" placeholder="Credit Score" required>
-      <input name="DTIRatio" placeholder="DTI Ratio (0.35)" required>
+      <div class="col-lg-6">
+        <div class="glassCard">
 
-      <select name="Education" required>
-        <option value="">Education</option>
-        {% for e in education_options %}
-          <option value="{{ e }}">{{ e }}</option>
-        {% endfor %}
-      </select>
+          {% if error %}
+          <div class="alert alert-danger">
+            <b>Error:</b> {{ error }}
+          </div>
+          {% endif %}
 
-      <select name="EmploymentType" required>
-        <option value="">Employment Type</option>
-        {% for e in employment_options %}
-          <option value="{{ e }}">{{ e }}</option>
-        {% endfor %}
-      </select>
+          <form method="POST" action="/predict" class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Age</label>
+              <input class="form-control" name="Age" required>
+            </div>
 
-      <button class="primary">Run AI Prediction</button>
-    </form>
-  </div>
+            <div class="col-md-6">
+              <label class="form-label">Income</label>
+              <input class="form-control" name="Income" required>
+            </div>
 
-  <!-- RIGHT PANEL -->
-  <div class="panel glass">
-    <h2>How LoanSense AI Works</h2>
-    <ul class="steps">
-      <li>📊 Risk factor analysis</li>
-      <li>🤖 Machine-learning inference</li>
-      <li>📈 Confidence estimation</li>
-      <li>💡 Actionable improvement tips</li>
-    </ul>
+            <div class="col-md-6">
+              <label class="form-label">Loan Amount</label>
+              <input class="form-control" name="LoanAmount" required>
+            </div>
 
-    <div class="ai-tag">Powered by ML</div>
-  </div>
+            <div class="col-md-6">
+              <label class="form-label">Credit Score</label>
+              <input class="form-control" name="CreditScore" required>
+            </div>
 
-</section>
-{% endblock %}
+            <div class="col-md-6">
+              <label class="form-label">DTI Ratio</label>
+              <input class="form-control" name="DTIRatio" placeholder="0.35" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Education</label>
+              <select class="form-select" name="Education" required>
+                {% for e in education_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Employment Type</label>
+              <select class="form-select" name="EmploymentType" required>
+                {% for e in employment_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12 d-grid">
+              <button class="btn btnGlow">Pred
