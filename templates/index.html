@@ -11,15 +11,9 @@
           <div class="pill">AI Financial Advisor</div>
           <h1 class="heroTitle">Financial Risk Assessment</h1>
           <p class="heroText">
-            Analyze applicant financial risk using credit health, income stability,
-            and debt ratios. This tool provides advisory-style insights.
+            Analyze applicant financial risk using credit health,
+            income stability, and debt ratios.
           </p>
-
-          <div class="microTips mt-3">
-            <div class="microTip">✔ Credit behavior analysis</div>
-            <div class="microTip">✔ Debt-to-income evaluation</div>
-            <div class="microTip">✔ Risk classification</div>
-          </div>
         </div>
       </div>
 
@@ -27,9 +21,7 @@
         <div class="glassCard">
 
           {% if error %}
-            <div class="alert alert-danger">
-              {{ error }}
-            </div>
+            <div class="alert alert-danger">{{ error }}</div>
           {% endif %}
 
           <form method="POST" action="/predict" class="row g-3">
@@ -40,17 +32,17 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Monthly Income</label>
+              <label class="form-label">Income</label>
               <input class="form-control" name="Income" required>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Requested Amount</label>
+              <label class="form-label">Loan Amount</label>
               <input class="form-control" name="LoanAmount" required>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Credit Health Score</label>
+              <label class="form-label">Credit Score</label>
               <input class="form-control" name="CreditScore" required>
             </div>
 
@@ -60,7 +52,7 @@
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Education Level</label>
+              <label class="form-label">Education</label>
               <select class="form-select" name="Education" required>
                 {% for e in education_options %}
                   <option value="{{ e }}">{{ e }}</option>
@@ -69,7 +61,7 @@
             </div>
 
             <div class="col-12">
-              <label class="form-label">Employment Status</label>
+              <label class="form-label">Employment Type</label>
               <select class="form-select" name="EmploymentType" required>
                 {% for e in employment_options %}
                   <option value="{{ e }}">{{ e }}</option>
