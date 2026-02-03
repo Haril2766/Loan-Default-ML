@@ -14,7 +14,7 @@
   --shadow:0 50px 140px rgba(0,0,0,.85);
 }
 
-/* RESET */
+/* ================= RESET ================= */
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
@@ -166,6 +166,7 @@ body{
   font-weight:600;
 }
 
+/* BASE INPUT STYLE */
 .form-control,
 .form-select{
   width:100%;
@@ -174,14 +175,41 @@ body{
   border-radius:16px;
   background:rgba(255,255,255,.08);
   border:1px solid var(--border);
-  color:#fff;
+  color:#ffffff;
+  font-size:1rem;
+  transition:all .2s ease;
 }
 
+/* PLACEHOLDER */
+.form-control::placeholder{
+  color:#9ca3af;
+}
+
+/* FOCUS */
 .form-control:focus,
 .form-select:focus{
   outline:none;
+  background:rgba(255,255,255,.10);
   border-color:var(--neon2);
   box-shadow:0 0 0 2px rgba(34,211,238,.35);
+  color:#ffffff;
+}
+
+/* WHEN VALUE ENTERED (prevents white bg) */
+.form-control:not(:placeholder-shown){
+  background:rgba(255,255,255,.10);
+  color:#ffffff;
+}
+
+/* CHROME AUTOFILL FIX */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill{
+  -webkit-text-fill-color:#ffffff !important;
+  -webkit-box-shadow:
+    0 0 0px 1000px rgba(20,20,30,1) inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 /* ================= BUTTON ================= */
