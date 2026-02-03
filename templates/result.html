@@ -1,39 +1,60 @@
 {% extends "base.html" %}
-{% set title = "RiskLens • Risk Summary" %}
+{% set title = "RiskLens • Result" %}
 
 {% block content %}
 <section class="heroWrap">
-  <div class="container card">
+  <div class="container">
 
-    <span class="pill">Risk Summary</span>
-    <h2 class="heroTitle">{{ status }}</h2>
+    <div class="glassCard resultCard">
 
-    {% if confidence %}
-      <p class="heroText">
-        Confidence Level: <b>{{ confidence }}%</b>
-      </p>
-    {% endif %}
+      <!-- RESULT HEADER -->
+      <div class="resultHeader">
+        <span class="pill">Risk Summary</span>
 
-    <div class="grid2">
-      <div class="kv"><div class="k">Age</div><div class="v">{{ age }}</div></div>
-      <div class="kv"><div class="k">Income</div><div class="v">{{ income }}</div></div>
-      <div class="kv"><div class="k">Requested Amount</div><div class="v">{{ loan_amount }}</div></div>
-      <div class="kv"><div class="k">Credit Health</div><div class="v">{{ credit_score }}</div></div>
-      <div class="kv"><div class="k">DTI Ratio</div><div class="v">{{ dti }}</div></div>
-    </div>
+        {% if "Approved" in status %}
+          <h1 class="resultTitle approved">Approved ✅</h1>
+        {% else %}
+          <h1 class="resultTitle rejected">Rejected ❌</h1>
+        {% endif %}
 
-    {% if hints %}
-      <div class="hintBox">
-        <div class="hintTitle">Risk Factors Identified</div>
+        {% if confidence %}
+          <p class="confidence">
+            Confidence Level: <b>{{ confidence }}%</b>
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- DETAILS GRID -->
+      <div class="resultGrid">
+        <div class="kv"><span>Age</span><b>{{ age }}</b></div>
+        <div class="kv"><span>Income</span><b>{{ income }}</b></div>
+        <div class="kv"><span>Loan Amount</span><b>{{ loan_amount }}</b></div>
+        <div class="kv"><span>Credit Score</span><b>{{ credit_score }}</b></div>
+        <div class="kv"><span>DTI Ratio</span><b>{{ dti }}</b></div>
+        <div class="kv"><span>Education</span><b>{{ education }}</b></div>
+        <div class="kv wide"><span>Employment Type</span><b>{{ employment }}</b></div>
+      </div>
+
+      <!-- RISK FACTORS -->
+      {% if hints %}
+      <div class="riskBox">
+        <h3>Risk Factors Identified</h3>
         <ul>
           {% for h in hints %}
             <li>{{ h }}</li>
           {% endfor %}
         </ul>
       </div>
-    {% endif %}
+      {% endif %}
 
-    <a class="btnGlow" href="/">Run Another Analysis</a>
+      <!-- ACTION -->
+      <div class="resultActions">
+        <a href="/" class="btnGlow">Run Another Analysis</a>
+      </div>
+
+    </div>
 
   </div>
 </section>
