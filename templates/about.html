@@ -1,26 +1,21 @@
 {% extends "base.html" %}
-{% set title = "LoanSense • About" %}
+{% set title = "RiskLens • About" %}
 
 {% block content %}
 <section class="heroWrap">
-  <div class="container">
-    <div class="glassCard">
-      <div class="pill">About</div>
-      <h2 class="heroTitle mt-2">About LoanSense</h2>
+  <div class="container card">
+    <span class="pill">About RiskLens</span>
+    <h2 class="heroTitle">AI-Driven Financial Risk Advisor</h2>
 
-      <p class="heroText">
-        LoanSense is an ML-powered loan approval prediction system built with Flask and scikit-learn.
-        It provides instant predictions with confidence and explainable hints.
-      </p>
+    <p class="heroText">
+      RiskLens is a machine-learning powered system designed to assess financial risk
+      using applicant credit behavior, income stability, and debt ratios.
+    </p>
 
-      <div class="divider"></div>
-
-      <div class="microTips">
-        <div class="microTip">✔ Machine Learning</div>
-        <div class="microTip">✔ Modern UI</div>
-        <div class="microTip">✔ Real-time Prediction</div>
-      </div>
-    </div>
+    <p class="heroText">
+      This project focuses on explainability, advisory insights, and professional
+      financial evaluation rather than simple approval decisions.
+    </p>
   </div>
 </section>
 {% endblock %}
