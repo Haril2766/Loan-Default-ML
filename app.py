@@ -17,6 +17,7 @@ MODEL_PATH = os.path.join(BASE_DIR, "loan_model.pkl")
 
 try:
     model = joblib.load(MODEL_PATH)
+    print("✅ Model loaded successfully")
 except Exception as e:
     model = None
     print("❌ Model load failed:", e)
@@ -32,6 +33,7 @@ SOCIAL_LINKS = {
     "github": "https://github.com/Bhavy123321"
 }
 
+# In-memory reviews
 REVIEWS = [
     {
         "name": "Aarav",
@@ -78,9 +80,13 @@ def home():
 def about():
     return render_template("about.html")
 
+# 🔹 REVIEWS PAGE (uses review.html)
 @app.route("/reviews", methods=["GET"])
 def reviews():
-    return render_template("reviews.html", reviews=list(reversed(REVIEWS)))
+    return render_template(
+        "review.html",
+        reviews=list(reversed(REVIEWS))
+    )
 
 @app.route("/reviews", methods=["POST"])
 def add_review():
@@ -104,6 +110,7 @@ def add_review():
 
     return redirect(url_for("reviews"))
 
+# 🔹 PREDICTION
 @app.route("/predict", methods=["POST"])
 def predict():
     if model is None:
@@ -125,9 +132,9 @@ def predict():
         employment = request.form.get("EmploymentType")
 
         if education not in EDUCATION_OPTIONS:
-            raise ValueError("Invalid education selection")
+            raise ValueError("Please select a valid Education")
         if employment not in EMPLOYMENT_OPTIONS:
-            raise ValueError("Invalid employment selection")
+            raise ValueError("Please select a valid Employment Type")
 
         X = pd.DataFrame([{
             "Age": age,
@@ -158,7 +165,7 @@ def predict():
         if dti > 0.45:
             hints.append("High DTI Ratio")
         if income > 0 and loan_amount > income * 0.6:
-            hints.append("Loan amount high compared to income")
+            hints.append("Loan amount is high compared to income")
 
         return render_template(
             "result.html",
@@ -185,7 +192,7 @@ def predict():
         )
 
 # -----------------------------
-# Health check (IMPORTANT)
+# Health check (Railway needs this)
 # -----------------------------
 @app.route("/health")
 def health():
