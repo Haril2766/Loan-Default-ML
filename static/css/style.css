@@ -257,3 +257,91 @@ select:-webkit-autofill{
     display:none;
   }
 }
+
+/* ================= RESULT PAGE ================= */
+
+.resultCard{
+  max-width:900px;
+  margin:auto;
+}
+
+.resultHeader{
+  text-align:left;
+}
+
+.resultTitle{
+  margin-top:18px;
+  font-size:clamp(42px,5vw,64px);
+  font-weight:1000;
+}
+
+.resultTitle.approved{
+  color:#4ade80;
+  text-shadow:0 0 30px rgba(74,222,128,.6);
+}
+
+.resultTitle.rejected{
+  color:#fb7185;
+  text-shadow:0 0 30px rgba(251,113,133,.6);
+}
+
+.confidence{
+  margin-top:10px;
+  color:var(--soft);
+  font-size:1.05rem;
+}
+
+.resultGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:28px;
+}
+
+.kv{
+  padding:16px 18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--border);
+}
+
+.kv span{
+  display:block;
+  font-size:.8rem;
+  color:var(--soft);
+}
+
+.kv b{
+  font-size:1.1rem;
+}
+
+.kv.wide{
+  grid-column:1/-1;
+}
+
+.riskBox{
+  margin-top:34px;
+  padding:22px;
+  border-radius:22px;
+  border:1px solid rgba(251,113,133,.35);
+  background:rgba(251,113,133,.12);
+}
+
+.riskBox h3{
+  margin:0 0 12px;
+  font-weight:900;
+}
+
+.riskBox ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.riskBox li{
+  margin-bottom:6px;
+}
+
+.resultActions{
+  margin-top:36px;
+  text-align:center;
+}
