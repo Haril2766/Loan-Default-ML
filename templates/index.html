@@ -11,25 +11,23 @@
         <div class="pill">AI Financial Advisor</div>
 
         <h1 class="heroTitle">
-          Smarter Financial Risk<br>
-          Decisions with AI
+          Financial Risk<br>
+          Assessment
         </h1>
 
         <p class="heroText">
-          RiskLens is an AI-powered financial risk assessment platform designed
-          to evaluate applicant profiles using credit behavior, income stability,
-          and debt exposure — all in real time.
+          Analyze applicant financial risk using intelligent models that evaluate
+          credit behavior, income stability, and debt exposure in real time.
         </p>
 
         <p class="heroText" style="margin-top:22px;">
-          • Identify potential approval risks before decisions are made<br>
-          • Analyze credit health, income balance, and repayment capacity<br>
-          • Support responsible, data-driven financial decisions
+          • Multi-factor financial risk evaluation<br>
+          • Clear insights for responsible decision-making<br>
+          • Designed for modern FinTech applications
         </p>
 
         <p class="heroText" style="margin-top:26px; font-size:.9rem; opacity:.8;">
-          Built using machine learning models trained on real-world financial patterns
-          to deliver accurate and explainable insights.
+          Powered by machine learning models trained on real-world financial patterns.
         </p>
       </div>
 
@@ -39,31 +37,57 @@
 
           <div class="row" style="grid-template-columns:1fr 1fr; gap:22px;">
 
+            <!-- Age -->
             <div>
               <label class="form-label">Age</label>
-              <input class="form-control" name="Age" required>
+              <input
+                class="form-control"
+                name="Age"
+                placeholder="e.g. 28"
+                required>
             </div>
 
+            <!-- Income -->
             <div>
               <label class="form-label">Income</label>
-              <input class="form-control" name="Income" required>
+              <input
+                class="form-control"
+                name="Income"
+                placeholder="Monthly income (₹ / $)"
+                required>
             </div>
 
+            <!-- Loan Amount -->
             <div>
               <label class="form-label">Loan Amount</label>
-              <input class="form-control" name="LoanAmount" required>
+              <input
+                class="form-control"
+                name="LoanAmount"
+                placeholder="Requested loan amount"
+                required>
             </div>
 
+            <!-- Credit Score -->
             <div>
               <label class="form-label">Credit Score</label>
-              <input class="form-control" name="CreditScore" required>
+              <input
+                class="form-control"
+                name="CreditScore"
+                placeholder="e.g. 720"
+                required>
             </div>
 
+            <!-- DTI -->
             <div>
               <label class="form-label">DTI Ratio</label>
-              <input class="form-control" name="DTIRatio" placeholder="0.35" required>
+              <input
+                class="form-control"
+                name="DTIRatio"
+                placeholder="e.g. 0.35"
+                required>
             </div>
 
+            <!-- Education -->
             <div>
               <label class="form-label">Education</label>
               <select class="form-select" name="Education" required>
@@ -73,6 +97,7 @@
               </select>
             </div>
 
+            <!-- Employment -->
             <div>
               <label class="form-label">Employment Type</label>
               <select class="form-select" name="EmploymentType" required>
@@ -82,8 +107,11 @@
               </select>
             </div>
 
+            <!-- Button -->
             <div style="display:flex; align-items:flex-end;">
-              <button class="btnGlow" style="width:100%;">Analyze Risk</button>
+              <button class="btnGlow" style="width:100%;">
+                Analyze Risk
+              </button>
             </div>
 
           </div>
