@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ title if title else "LoanSense Neo" }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ title if title else "LoanSense • ML Loan Prediction" }}</title>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}">
+  <!-- KEEP EXISTING CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-<header class="nav">
-  <div class="nav-left">
-    LoanSense<span>AI</span>
-  </div>
+  <div class="bg-orbs"></div>
 
-  <nav>
-    <a href="/">Predict</a>
-    <a href="/reviews">Reviews</a>
-    <a href="/about">About</a>
+  <nav class="topbar">
+    <div class="container d-flex align-items-center justify-content-between gap-3">
+      <a class="brand" href="/">
+        <span class="brandDot"></span>
+        <span>LoanSense</span>
+      </a>
+
+      <div class="navlinks d-none d-md-flex">
+        <a href="/" class="{% if request.path=='/' %}active{% endif %}">Predict</a>
+        <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
+        <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Reviews</a>
+      </div>
+
+      <div class="social">
+        <a class="iconBtn" href="{{ social.linkedin }}" target="_blank">in</a>
+        <a class="iconBtn" href="{{ social.github }}" target="_blank">GH</a>
+      </div>
+    </div>
   </nav>
-</header>
 
-<main class="container">
-  {% block content %}{% endblock %}
-</main>
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
 
-<footer class="footer">
-  <div>© 2026 LoanSense • ML Powered Decisions</div>
-</footer>
+  <footer class="footer">
+    <div class="container py-4">
+      <div class="small text-soft">
+        © 2026 • LoanSense • Built with Flask & ML
+      </div>
+    </div>
+  </footer>
 
-<script src="{{ url_for('static', filename='js/neo.js') }}"></script>
+  <!-- KEEP EXISTING JS -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
