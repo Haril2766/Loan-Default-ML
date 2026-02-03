@@ -3,48 +3,37 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ title if title else "LoanSense • ML Loan Prediction" }}</title>
+  <title>{{ title if title else "RiskLens • AI Financial Risk Advisor" }}</title>
 
-  <!-- KEEP EXISTING CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-  <div class="bg-orbs"></div>
+<nav class="topbar">
+  <div class="container navWrap">
+    <a class="brand" href="/">
+      <span class="brandDot"></span>
+      <span>RiskLens</span>
+    </a>
 
-  <nav class="topbar">
-    <div class="container d-flex align-items-center justify-content-between gap-3">
-      <a class="brand" href="/">
-        <span class="brandDot"></span>
-        <span>LoanSense</span>
-      </a>
-
-      <div class="navlinks d-none d-md-flex">
-        <a href="/" class="{% if request.path=='/' %}active{% endif %}">Predict</a>
-        <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
-        <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Reviews</a>
-      </div>
-
-      <div class="social">
-        <a class="iconBtn" href="{{ social.linkedin }}" target="_blank">in</a>
-        <a class="iconBtn" href="{{ social.github }}" target="_blank">GH</a>
-      </div>
+    <div class="navlinks">
+      <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
+      <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
+      <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Feedback</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <main class="page">
-    {% block content %}{% endblock %}
-  </main>
+<main class="page">
+  {% block content %}{% endblock %}
+</main>
 
-  <footer class="footer">
-    <div class="container py-4">
-      <div class="small text-soft">
-        © 2026 • LoanSense • Built with Flask & ML
-      </div>
-    </div>
-  </footer>
+<footer class="footer">
+  <div class="container">
+    © 2026 • RiskLens • AI-Powered Financial Insights
+  </div>
+</footer>
 
-  <!-- KEEP EXISTING JS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
