@@ -3,53 +3,90 @@
 
 {% block content %}
 <section class="heroWrap">
-  <div class="container grid">
+  <div class="container">
+    <div class="row g-4">
 
-    <div class="card">
-      <span class="pill">AI Financial Advisor</span>
-      <h1 class="heroTitle">Financial Risk Assessment</h1>
-      <p class="heroText">
-        Evaluate applicant risk using credit health, income stability, and debt ratios.
-        This tool provides an advisory-style risk summary.
-      </p>
+      <div class="col-lg-6">
+        <div class="heroCard">
+          <div class="pill">AI Financial Advisor</div>
+          <h1 class="heroTitle">Financial Risk Assessment</h1>
+          <p class="heroText">
+            Analyze applicant financial risk using credit health, income stability,
+            and debt ratios. This tool provides advisory-style insights.
+          </p>
 
-      <ul class="list">
-        <li>✔ Credit behavior analysis</li>
-        <li>✔ Debt-to-income evaluation</li>
-        <li>✔ Risk classification & insights</li>
-      </ul>
+          <div class="microTips mt-3">
+            <div class="microTip">✔ Credit behavior analysis</div>
+            <div class="microTip">✔ Debt-to-income evaluation</div>
+            <div class="microTip">✔ Risk classification</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="glassCard">
+
+          {% if error %}
+            <div class="alert alert-danger">
+              {{ error }}
+            </div>
+          {% endif %}
+
+          <form method="POST" action="/predict" class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label">Age</label>
+              <input class="form-control" name="Age" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Monthly Income</label>
+              <input class="form-control" name="Income" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Requested Amount</label>
+              <input class="form-control" name="LoanAmount" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Credit Health Score</label>
+              <input class="form-control" name="CreditScore" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">DTI Ratio</label>
+              <input class="form-control" name="DTIRatio" placeholder="0.35" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Education Level</label>
+              <select class="form-select" name="Education" required>
+                {% for e in education_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Employment Status</label>
+              <select class="form-select" name="EmploymentType" required>
+                {% for e in employment_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-12 d-grid">
+              <button class="btn btnGlow">Analyze Risk</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
     </div>
-
-    <div class="card">
-      {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-      {% endif %}
-
-      <form method="POST" action="/predict" class="form">
-        <input name="Age" placeholder="Applicant Age" required>
-        <input name="Income" placeholder="Monthly Income" required>
-        <input name="LoanAmount" placeholder="Requested Amount" required>
-        <input name="CreditScore" placeholder="Credit Health Score" required>
-        <input name="DTIRatio" placeholder="Debt-to-Income Ratio (0.35)" required>
-
-        <select name="Education" required>
-          <option value="">Education Level</option>
-          {% for e in education_options %}
-            <option value="{{ e }}">{{ e }}</option>
-          {% endfor %}
-        </select>
-
-        <select name="EmploymentType" required>
-          <option value="">Employment Status</option>
-          {% for e in employment_options %}
-            <option value="{{ e }}">{{ e }}</option>
-          {% endfor %}
-        </select>
-
-        <button class="btnGlow">Analyze Risk</button>
-      </form>
-    </div>
-
   </div>
 </section>
 {% endblock %}
