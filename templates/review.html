@@ -5,85 +5,43 @@
 <section class="heroWrap">
   <div class="container">
     <div class="row g-4">
+
       <div class="col-lg-5">
         <div class="glassCard">
           <div class="pill">Reviews</div>
-          <h2 class="heroTitle mt-2">Leave a Review</h2>
-          <p class="heroText">Share feedback so others can trust the project.</p>
+          <h2 class="heroTitle mt-2">Leave Feedback</h2>
 
-          <form action="/reviews" method="POST" class="mt-3">
-            <div class="mb-3">
-              <label class="form-label">Your Name</label>
-              <input class="form-control form-control-lg" name="name" placeholder="e.g. Bhavy" />
-            </div>
+          <form method="POST" action="/reviews">
+            <input class="form-control mb-2" name="name" placeholder="Your name">
+            <input class="form-control mb-2" name="tag" placeholder="Student / Recruiter">
 
-            <div class="mb-3">
-              <label class="form-label">Tag</label>
-              <input class="form-control form-control-lg" name="tag" placeholder="e.g. Student / Recruiter" />
-            </div>
+            <select class="form-select mb-2" name="rating">
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆</option>
+              <option value="3">★★★☆☆</option>
+            </select>
 
-            <div class="mb-3">
-              <label class="form-label">Rating</label>
-              <select class="form-select form-select-lg" name="rating">
-                <option value="5" selected>★★★★★ (5)</option>
-                <option value="4">★★★★☆ (4)</option>
-                <option value="3">★★★☆☆ (3)</option>
-                <option value="2">★★☆☆☆ (2)</option>
-                <option value="1">★☆☆☆☆ (1)</option>
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Message</label>
-              <textarea class="form-control form-control-lg" name="message" rows="4"
-                        placeholder="Write your feedback..."></textarea>
-            </div>
-
-            <div class="d-grid">
-              <button class="btn btnGlow btn-lg">Submit Review</button>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="text-soft small">
-              Want to connect? <a class="linkBright" href="{{ social.linkedin }}" target="_blank" rel="noreferrer">LinkedIn</a>
-              <span class="sep">•</span>
-              <a class="linkBright" href="{{ social.github }}" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
+            <textarea class="form-control mb-3" name="message" placeholder="Your review"></textarea>
+            <button class="btn btnGlow w-100">Submit Review</button>
           </form>
         </div>
       </div>
 
       <div class="col-lg-7">
         <div class="glassCard">
-          <div class="cardTitle">What people say</div>
-          <div class="cardSub">Latest reviews shown first</div>
+          <h3 class="cardTitle">What users say</h3>
 
-          <div class="divider"></div>
-
-          <div class="reviewGrid">
+          <div class="reviewGrid mt-3">
             {% for r in reviews %}
-              <div class="reviewCard">
-                <div class="reviewTop">
-                  <div>
-                    <div class="reviewName">{{ r.name }}</div>
-                    <div class="reviewTag text-soft">{{ r.tag }}</div>
-                  </div>
-                  <div class="reviewStars">
-                    {% for _ in range(r.rating) %}★{% endfor %}
-                    {% for _ in range(5 - r.rating) %}☆{% endfor %}
-                  </div>
-                </div>
-                <div class="reviewMsg">{{ r.message }}</div>
-              </div>
+            <div class="reviewCard">
+              <div class="reviewName">{{ r.name }}</div>
+              <div class="reviewMsg">{{ r.message }}</div>
+            </div>
             {% endfor %}
           </div>
-
-          {% if reviews|length == 0 %}
-            <div class="text-soft">No reviews yet. Be the first!</div>
-          {% endif %}
         </div>
       </div>
+
     </div>
   </div>
 </section>
