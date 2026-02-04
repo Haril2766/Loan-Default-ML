@@ -1,44 +1,59 @@
 {% extends "base.html" %}
+{% set title = "RiskLens • Result" %}
 
 {% block content %}
 <section class="heroWrap">
   <div class="container">
 
-    <div class="glassCard" style="max-width:900px; margin:auto;">
-      <span class="pill">Risk Assessment Result</span>
+    <div class="glassCard resultCard">
 
-      <h2 class="heroTitle" style="font-size:42px; margin-top:16px;">
-        {{ "Approved" if prediction==1 else "Rejected" }}
-      </h2>
+      <!-- RESULT HEADER -->
+      <div class="resultHeader">
+        <span class="pill">Risk Summary</span>
 
-      <p class="heroText">
-        Model Confidence: <b>{{ confidence }}%</b>
-      </p>
+        {% if "Approved" in status %}
+          <h1 class="resultTitle approved">Approved ✅</h1>
+        {% else %}
+          <h1 class="resultTitle rejected">Rejected ❌</h1>
+        {% endif %}
+
+        {% if confidence %}
+          <p class="confidence">
+            Confidence Level: <b>{{ confidence }}%</b>
+          </p>
+        {% endif %}
+      </div>
 
       <div class="divider"></div>
 
-      <p class="heroText">
-        <b>Age:</b> {{ age }} <br>
-        <b>Income:</b> {{ income }} <br>
-        <b>Loan Amount:</b> {{ loan_amount }} <br>
-        <b>Credit Score:</b> {{ credit_score }} <br>
-        <b>DTI Ratio:</b> {{ dti }} <br>
-        <b>Employment:</b> {{ employment }}
-      </p>
+      <!-- DETAILS GRID -->
+      <div class="resultGrid">
+        <div class="kv"><span>Age</span><b>{{ age }}</b></div>
+        <div class="kv"><span>Income</span><b>{{ income }}</b></div>
+        <div class="kv"><span>Loan Amount</span><b>{{ loan_amount }}</b></div>
+        <div class="kv"><span>Credit Score</span><b>{{ credit_score }}</b></div>
+        <div class="kv"><span>DTI Ratio</span><b>{{ dti }}</b></div>
+        <div class="kv"><span>Education</span><b>{{ education }}</b></div>
+        <div class="kv wide"><span>Employment Type</span><b>{{ employment }}</b></div>
+      </div>
 
-      {% if insights %}
-      <div class="divider"></div>
-      <h3>Risk Insights</h3>
-      <ul>
-        {% for i in insights %}
-          <li>{{ i }}</li>
-        {% endfor %}
-      </ul>
+      <!-- RISK FACTORS -->
+      {% if hints %}
+      <div class="riskBox">
+        <h3>Risk Factors Identified</h3>
+        <ul>
+          {% for h in hints %}
+            <li>{{ h }}</li>
+          {% endfor %}
+        </ul>
+      </div>
       {% endif %}
 
-      <div class="divider"></div>
+      <!-- ACTION -->
+      <div class="resultActions">
+        <a href="/" class="btnGlow">Run Another Analysis</a>
+      </div>
 
-      <a href="/" class="btnGlow">Run Another Analysis</a>
     </div>
 
   </div>
