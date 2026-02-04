@@ -3,48 +3,56 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ title if title else "LoanRiskLens • AI Loan Risk Advisor" }}</title>
+  <title>{{ title if title else "LoanRiskLens • AI Financial Risk Advisor" }}</title>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="topbar">
-  <div class="navWrap">
+  <!-- HEADER / NAVBAR -->
+  <nav class="topbar">
+    <div class="navWrap">
 
-    <a class="brand" href="/">
-      <span class="brandDot"></span>
-      <span>LoanRiskLens</span>
-    </a>
+      <!-- Brand -->
+      <a class="brand" href="/">
+        <span class="brandDot"></span>
+        <span class="brandText">LoanRiskLens</span>
+      </a>
 
-    <!-- Desktop Nav -->
-    <div class="navlinks desktopNav">
-      <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
-      <a href="/about">About</a>
-      <a href="/reviews">Feedback</a>
+      <!-- Navigation -->
+      <div class="navRight">
+        <div class="navlinks">
+          <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
+          <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
+          <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Feedback</a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="social">
+          <a href="https://github.com/Haril2766" target="_blank" aria-label="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/Haril-Parmar" target="_blank" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
+  </nav>
 
-    <!-- Mobile Button -->
-    <button class="menuBtn" onclick="toggleMenu()">☰</button>
-  </div>
+  <!-- PAGE CONTENT -->
+  <main class="page">
+    {% block content %}{% endblock %}
+  </main>
 
-  <!-- Mobile Menu -->
-  <div class="mobileNav" id="mobileNav">
-    <a href="/">Analyze</a>
-    <a href="/about">About</a>
-    <a href="/reviews">Feedback</a>
-  </div>
-</nav>
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2026 • LoanRiskLens • AI-Powered Financial Insights
+  </footer>
 
-<main class="page">
-  {% block content %}{% endblock %}
-</main>
-
-<footer class="footer">
-  © 2026 • LoanRiskLens • AI-Powered Financial Insights
-</footer>
-
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
