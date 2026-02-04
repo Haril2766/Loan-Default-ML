@@ -5,92 +5,93 @@
 <section class="heroWrap">
   <div class="container">
 
-    <div class="glassCard">
-
+    <!-- HEADER -->
+    <div class="heroCard">
       <div class="pill">Feedback</div>
 
-      <h1 class="heroTitle" style="margin-top:20px;">
-        Share Your Experience
-      </h1>
+      <h1 class="heroTitle">Share Your Experience</h1>
 
       <p class="heroText">
-        Your feedback helps us improve RiskLens and build better
-        AI-powered financial tools.
+        Your feedback helps us improve RiskLens and deliver better AI-powered
+        financial insights for everyone.
       </p>
+    </div>
 
-      <!-- FEEDBACK FORM -->
-      <form method="POST" action="/reviews" class="feedbackForm">
+    <!-- FEEDBACK FORM -->
+    <div class="glassCard" style="margin-top:50px;">
+      <form method="POST" action="/feedback">
 
-        <div class="feedbackGrid">
+        <div class="row" style="grid-template-columns:1fr 1fr; gap:24px;">
 
           <div>
             <label class="form-label">Your Name</label>
-            <input
-              class="form-control"
-              name="name"
-              placeholder="e.g. Neha"
-              required>
+            <input class="form-control" placeholder="e.g. Neha" required>
           </div>
 
           <div>
-            <label class="form-label">Role</label>
-            <input
-              class="form-control"
-              name="role"
-              placeholder="Student / Analyst / Recruiter"
-              required>
+            <label class="form-label">Profession</label>
+            <input class="form-control" placeholder="Student / Analyst / Recruiter">
           </div>
 
           <div>
             <label class="form-label">Rating</label>
-            <select class="form-select" name="rating" required>
-              <option value="5">★★★★★ Excellent</option>
-              <option value="4">★★★★☆ Very Good</option>
-              <option value="3">★★★☆☆ Good</option>
-              <option value="2">★★☆☆☆ Fair</option>
-              <option value="1">★☆☆☆☆ Poor</option>
+            <select class="form-select">
+              <option>★★★★★ Excellent</option>
+              <option>★★★★☆ Very Good</option>
+              <option>★★★☆☆ Good</option>
+              <option>★★☆☆☆ Fair</option>
+              <option>★☆☆☆☆ Poor</option>
             </select>
           </div>
 
-          <div></div>
-
-          <div>
+          <div style="grid-column:1 / -1;">
             <label class="form-label">Your Feedback</label>
-            <textarea
-              class="form-control"
-              name="message"
-              placeholder="Share your experience with RiskLens..."
-              required></textarea>
+            <textarea class="form-control" rows="4"
+              placeholder="Share your experience with RiskLens..."></textarea>
+          </div>
+
+          <div style="grid-column:1 / -1;">
+            <button class="btnGlow" style="width:100%;">
+              Submit Feedback
+            </button>
           </div>
 
         </div>
-
-        <button class="btnGlow" style="margin-top:34px;">
-          Submit Feedback
-        </button>
-
       </form>
     </div>
 
     <!-- USER REVIEWS -->
-    {% if reviews %}
-    <div class="reviewList">
-      {% for r in reviews %}
-      <div class="reviewCard">
-        <div class="reviewName">{{ r.name }}</div>
-        <div class="reviewRole">{{ r.role }}</div>
+    <section class="reviewSection">
+      <h2 class="heroTitle" style="font-size:38px;">User Feedback</h2>
 
-        <div class="reviewStars">
-          {{ "★" * r.rating }}{{ "☆" * (5 - r.rating) }}
+      <div class="reviewGrid">
+
+        <div class="reviewCard">
+          <div class="reviewName">Neha</div>
+          <div class="reviewStars">★★★★★</div>
+          <div class="reviewText">
+            Very smooth experience. Looks professional and well designed.
+          </div>
         </div>
 
-        <div class="reviewText">
-          {{ r.message }}
+        <div class="reviewCard">
+          <div class="reviewName">Aarav</div>
+          <div class="reviewStars">★★★★★</div>
+          <div class="reviewText">
+            Clean UI and super fast prediction. Loved it!
+          </div>
         </div>
+
+        <div class="reviewCard">
+          <div class="reviewName">Ritika</div>
+          <div class="reviewStars">★★★★☆</div>
+          <div class="reviewText">
+            The AI explanation is really helpful. Makes decisions easy to trust.
+          </div>
+        </div>
+
       </div>
-      {% endfor %}
-    </div>
-    {% endif %}
+    </section>
 
   </div>
 </section>
