@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set title = "RiskLens • Financial Risk Assessment" %}
+{% set title = "LoanRiskLens • Smarter Loan Risk" %}
 
 {% block content %}
 <section class="heroWrap">
@@ -10,31 +10,31 @@
       <div class="heroCard">
         <div class="pill">AI Financial Advisor</div>
 
-       <h1 class="heroTitle">
-  Smarter Loan Risk<br>
-  Analysis Powered by AI
-</h1>
+        <h1 class="heroTitle">
+          Smarter Loan Risk<br>
+          Analysis Powered by AI
+        </h1>
 
         <p class="heroText">
-          RiskLens evaluates applicant profiles using credit behavior,
+          LoanRiskLens evaluates applicant profiles using credit behavior,
           income stability, and debt exposure — all in real time.
         </p>
 
-        <p class="heroText">
-          • Predict approval risks early<br>
-          • Understand credit & repayment strength<br>
-          • Make data-driven financial decisions
-        </p>
+        <ul class="heroList">
+          <li>Multi-factor loan risk analysis</li>
+          <li>Explainable AI decisions</li>
+          <li>Designed for modern FinTech</li>
+        </ul>
 
-        <p class="heroText" style="font-size:.9rem; opacity:.8;">
-          Powered by machine-learning models trained on real-world financial data.
+        <p class="heroFoot">
+          Built with machine-learning models trained on real-world financial data.
         </p>
       </div>
 
       <!-- RIGHT -->
       <div class="glassCard">
         <form action="/predict" method="POST">
-          <div class="row" style="grid-template-columns:1fr 1fr; gap:22px;">
+          <div class="formGrid">
 
             <div>
               <label class="form-label">Age</label>
@@ -79,8 +79,8 @@
               </select>
             </div>
 
-            <div style="display:flex;align-items:flex-end;">
-              <button class="btnGlow" style="width:100%;">Analyze Risk</button>
+            <div class="btnWrap">
+              <button class="btnGlow">Analyze Risk</button>
             </div>
 
           </div>
@@ -91,4 +91,3 @@
   </div>
 </section>
 {% endblock %}
-
