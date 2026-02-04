@@ -57,9 +57,6 @@ body{
   letter-spacing:.8px;
   color:#fff;
   text-decoration:none;
-  text-shadow:
-    0 0 20px rgba(124,124,255,.45),
-    0 0 40px rgba(34,211,238,.25);
 }
 
 .brandDot{
@@ -67,48 +64,26 @@ body{
   height:16px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--neon1),var(--neon2));
-  box-shadow:
-    0 0 20px var(--neon1),
-    0 0 50px rgba(124,124,255,.8),
-    0 0 90px rgba(34,211,238,.6);
+  box-shadow:0 0 30px var(--neon1);
 }
 
 .navlinks a{
   margin-left:34px;
-  text-decoration:none;
   color:var(--soft);
-  font-size:1.1rem;
+  font-size:1.05rem;
   font-weight:600;
-  position:relative;
+  text-decoration:none;
 }
 
-.navlinks a:hover,
-.navlinks a.active{
+.navlinks a.active,
+.navlinks a:hover{
   color:#fff;
 }
 
-.navlinks a.active::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:-14px;
-  height:4px;
-  border-radius:6px;
-  background:linear-gradient(90deg,var(--neon1),var(--neon2));
-  box-shadow:
-    0 0 20px rgba(124,124,255,.8),
-    0 0 40px rgba(34,211,238,.6);
-}
-
 /* ================= LAYOUT ================= */
-.page{
-  min-height:calc(100vh - 160px);
-}
+.page{ min-height:calc(100vh - 160px); }
 
-.heroWrap{
-  padding:110px 0 140px;
-}
+.heroWrap{ padding:110px 0 140px; }
 
 .container{
   max-width:1400px;
@@ -175,13 +150,34 @@ body{
   background:rgba(255,255,255,.08);
   border:1px solid var(--border);
   color:#fff;
+  appearance:none;
 }
 
+/* PLACEHOLDER COLOR */
+.form-control::placeholder{
+  color:rgba(255,255,255,.45);
+}
+
+/* FOCUS */
 .form-control:focus,
 .form-select:focus{
   outline:none;
   border-color:var(--neon2);
+  background:rgba(255,255,255,.1);
   box-shadow:0 0 0 2px rgba(34,211,238,.35);
+}
+
+/* 🔥 DROPDOWN FIX */
+.form-select option{
+  background:#0b0f1e;
+  color:#e5e7eb;
+}
+
+/* Remove number arrows */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+  -webkit-appearance:none;
+  margin:0;
 }
 
 /* ================= BUTTON ================= */
@@ -200,9 +196,10 @@ body{
 
 .btnGlow:hover{
   transform:translateY(-3px) scale(1.04);
-  box-shadow:
-    0 0 40px rgba(124,124,255,.6),
-    0 30px 90px rgba(34,211,238,.45);
+}
+
+.btnGlow:active{
+  transform:scale(.98);
 }
 
 /* ================= FOOTER ================= */
@@ -216,16 +213,7 @@ body{
 
 /* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
-  .row{
-    grid-template-columns:1fr;
-    gap:48px;
-  }
-
-  .heroWrap{
-    padding:70px 0 90px;
-  }
-
-  .navlinks{
-    display:none;
-  }
+  .row{ grid-template-columns:1fr; gap:48px; }
+  .heroWrap{ padding:70px 0 90px; }
+  .navlinks{ display:none; }
 }
