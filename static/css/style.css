@@ -262,6 +262,52 @@ body{
   transform:translateY(-3px);
 }
 
+
+/* ================= REVIEW SECTION ================= */
+.reviewSection{
+  margin-top:80px;
+}
+
+.reviewGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:28px;
+  margin-top:32px;
+}
+
+.reviewCard{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);
+  transition:transform .25s ease;
+}
+
+.reviewCard:hover{
+  transform:translateY(-6px);
+}
+
+.reviewName{
+  font-weight:900;
+  font-size:1.1rem;
+  margin-bottom:6px;
+}
+
+.reviewStars{
+  color:#facc15;
+  letter-spacing:2px;
+  margin-bottom:12px;
+}
+
+.reviewText{
+  color:var(--soft);
+  line-height:1.6;
+  font-size:.95rem;
+}
+
+
 /* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
   .row{ grid-template-columns:1fr; }
@@ -276,3 +322,4 @@ body{
     text-align:center;
   }
 }
+
