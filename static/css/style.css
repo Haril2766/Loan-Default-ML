@@ -2,6 +2,7 @@
   --bg:#05070f;
   --bg2:#0b0f1e;
   --card:rgba(255,255,255,.07);
+  --border:rgba(255,255,255,.14);
 
   --text:#e5e7eb;
   --soft:#9ca3af;
@@ -9,8 +10,7 @@
   --neon1:#7c7cff;
   --neon2:#22d3ee;
 
-  --border:rgba(255,255,255,.14);
-  --shadow:0 40px 120px rgba(0,0,0,.75);
+  --shadow:0 40px 120px rgba(0,0,0,.8);
 }
 
 /* RESET */
@@ -22,8 +22,8 @@ body{
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
   color:var(--text);
   background:
-    radial-gradient(1000px 500px at 10% 10%, rgba(124,124,255,.3), transparent 60%),
-    radial-gradient(1000px 500px at 90% 20%, rgba(34,211,238,.25), transparent 60%),
+    radial-gradient(1200px 600px at 10% 10%, rgba(124,124,255,.35), transparent 60%),
+    radial-gradient(1200px 600px at 90% 20%, rgba(34,211,238,.25), transparent 60%),
     linear-gradient(180deg,var(--bg),var(--bg2));
 }
 
@@ -32,7 +32,7 @@ body{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(5,7,15,.75);
+  background:rgba(5,7,15,.8);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
@@ -61,7 +61,7 @@ body{
   height:12px;
   border-radius:50%;
   background:linear-gradient(135deg,var(--neon1),var(--neon2));
-  box-shadow:0 0 14px rgba(34,211,238,.8);
+  box-shadow:0 0 16px rgba(34,211,238,.8);
 }
 
 .navlinks a{
@@ -76,16 +76,50 @@ body{
   color:#fff;
 }
 
-/* ❌ NO underline */
-.navlinks a::after{ display:none; }
-
-/* ================= LAYOUT ================= */
-.page{
-  min-height:calc(100vh - 140px);
+/* ================= MOBILE MENU BUTTON ================= */
+.menuBtn{
+  display:none;
+  font-size:1.6rem;
+  background:none;
+  border:none;
+  color:#fff;
+  cursor:pointer;
 }
 
+/* ================= MOBILE NAV ================= */
+#mobileNav{
+  position:fixed;
+  inset:0;
+  background:rgba(5,7,15,.95);
+  backdrop-filter:blur(22px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  transform:translateY(-100%);
+  transition:.35s ease;
+  z-index:100;
+}
+
+#mobileNav.open{
+  transform:translateY(0);
+}
+
+#mobileNav a{
+  font-size:1.4rem;
+  font-weight:800;
+  color:#fff;
+  text-decoration:none;
+}
+
+#mobileNav a:hover{
+  color:var(--neon2);
+}
+
+/* ================= LAYOUT ================= */
 .heroWrap{
-  padding:90px 0 120px;
+  padding:100px 0 120px;
 }
 
 .container{
@@ -97,14 +131,14 @@ body{
 .row{
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:60px;
+  gap:64px;
 }
 
 /* ================= CARDS ================= */
 .heroCard,
 .glassCard{
   background:var(--card);
-  border-radius:28px;
+  border-radius:30px;
   padding:42px;
   border:1px solid var(--border);
   backdrop-filter:blur(22px);
@@ -125,7 +159,6 @@ body{
   margin-top:18px;
   font-size:clamp(42px,6vw,70px);
   font-weight:1000;
-  line-height:1.1;
 }
 
 .heroText{
@@ -166,6 +199,7 @@ body{
 .btnGlow{
   margin-top:26px;
   padding:16px;
+  width:100%;
   border:none;
   border-radius:22px;
   background:linear-gradient(135deg,var(--neon1),var(--neon2));
@@ -174,11 +208,29 @@ body{
   cursor:pointer;
 }
 
+/* ================= JS SUPPORT CLASSES ================= */
+.hover-card{
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.hover-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 90px rgba(0,0,0,.7);
+}
+
+.btn-pressed{
+  transform:scale(.97);
+}
+
+.input-focus{
+  border-color:var(--neon2) !important;
+  box-shadow:0 0 0 2px rgba(34,211,238,.35) !important;
+}
+
 /* ================= FOOTER ================= */
 .footer{
   border-top:1px solid var(--border);
   background:rgba(5,7,15,.9);
-  backdrop-filter:blur(16px);
 }
 
 .footerWrap{
@@ -192,7 +244,6 @@ body{
 
 .footerLeft{
   color:var(--soft);
-  font-size:.9rem;
 }
 
 .footerSocial{
@@ -209,10 +260,19 @@ body{
 .footerSocial a:hover{
   color:#fff;
   transform:translateY(-3px);
-  text-shadow:0 0 16px rgba(124,124,255,.6);
 }
 
-/* ================= MOBILE ================= */
+/* ================= RESPONSIVE ================= */
 @media(max-width:1000px){
   .row{ grid-template-columns:1fr; }
-  .navlinks{ display:
+  .navlinks{ display:none; }
+  .menuBtn{ display:block; }
+}
+
+@media(max-width:700px){
+  .footerWrap{
+    flex-direction:column;
+    gap:12px;
+    text-align:center;
+  }
+}
