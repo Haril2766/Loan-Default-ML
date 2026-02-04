@@ -15,45 +15,46 @@ document.addEventListener("DOMContentLoaded", () => {
      2. Card hover effect (desktop only)
      ---------------------------------- */
   if (window.innerWidth > 900) {
-    const cards = document.querySelectorAll(".glassCard, .heroCard");
-    cards.forEach(card => {
-      card.style.transition = "transform 0.2s ease";
-      card.addEventListener("mouseenter", () => {
-        card.style.transform = "translateY(-4px)";
-      });
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "translateY(0)";
-      });
+    document.querySelectorAll(".glassCard, .heroCard").forEach(card => {
+      card.classList.add("hover-card");
     });
   }
 
   /* ----------------------------------
-     3. Button click feedback
+     3. Button click feedback (safe)
      ---------------------------------- */
-  const buttons = document.querySelectorAll("button");
-  buttons.forEach(btn => {
+  document.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("mousedown", () => {
-      btn.style.transform = "scale(0.97)";
+      btn.classList.add("btn-pressed");
     });
     btn.addEventListener("mouseup", () => {
-      btn.style.transform = "scale(1)";
+      btn.classList.remove("btn-pressed");
     });
     btn.addEventListener("mouseleave", () => {
-      btn.style.transform = "scale(1)";
+      btn.classList.remove("btn-pressed");
     });
   });
 
   /* ----------------------------------
-     4. Input focus highlight
+     4. Input focus highlight (CSS driven)
      ---------------------------------- */
-  const inputs = document.querySelectorAll("input, select, textarea");
-  inputs.forEach(input => {
-    input.addEventListener("focus", () => {
-      input.style.boxShadow = "0 0 0 2px rgba(37,99,235,0.25)";
+  document.querySelectorAll("input, select, textarea").forEach(el => {
+    el.addEventListener("focus", () => {
+      el.classList.add("input-focus");
     });
-    input.addEventListener("blur", () => {
-      input.style.boxShadow = "none";
+    el.addEventListener("blur", () => {
+      el.classList.remove("input-focus");
     });
   });
 
 });
+
+/* ----------------------------------
+   5. Mobile menu toggle
+   ---------------------------------- */
+function toggleMenu() {
+  const menu = document.getElementById("mobileNav");
+  if (menu) {
+    menu.classList.toggle("open");
+  }
+}
