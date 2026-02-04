@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set title = "LoanRiskLens • Smarter Loan Risk" %}
+{% set title = "LoanRiskLens • Smarter Loan Risk Analysis" %}
 
 {% block content %}
 <section class="heroWrap">
@@ -20,21 +20,17 @@
           income stability, and debt exposure — all in real time.
         </p>
 
-        <ul class="heroList">
-          <li>Multi-factor loan risk analysis</li>
-          <li>Explainable AI decisions</li>
-          <li>Designed for modern FinTech</li>
-        </ul>
-
-        <p class="heroFoot">
-          Built with machine-learning models trained on real-world financial data.
+        <p class="heroText">
+          • Multi-factor loan risk analysis<br>
+          • Explainable AI decisions<br>
+          • Built for modern FinTech platforms
         </p>
       </div>
 
       <!-- RIGHT -->
       <div class="glassCard">
         <form action="/predict" method="POST">
-          <div class="formGrid">
+          <div class="row" style="grid-template-columns:1fr 1fr; gap:20px;">
 
             <div>
               <label class="form-label">Age</label>
@@ -79,7 +75,7 @@
               </select>
             </div>
 
-            <div class="btnWrap">
+            <div style="display:flex;align-items:flex-end;">
               <button class="btnGlow">Analyze Risk</button>
             </div>
 
