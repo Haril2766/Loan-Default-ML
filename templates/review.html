@@ -3,36 +3,94 @@
 
 {% block content %}
 <section class="heroWrap">
-  <div class="container grid">
+  <div class="container">
 
-    <div class="card">
-      <span class="pill">Feedback</span>
-      <h2 class="heroTitle">Share Your Experience</h2>
+    <div class="glassCard">
 
-      <form method="POST" action="/reviews" class="form">
-        <input name="name" placeholder="Your name">
-        <input name="tag" placeholder="Analyst / Student / Recruiter">
-        <select name="rating">
-          <option value="5">★★★★★ Excellent</option>
-          <option value="4">★★★★☆ Good</option>
-          <option value="3">★★★☆☆ Average</option>
-        </select>
-        <textarea name="message" placeholder="Your feedback"></textarea>
-        <button class="btnGlow">Submit Feedback</button>
+      <div class="pill">Feedback</div>
+
+      <h1 class="heroTitle" style="margin-top:20px;">
+        Share Your Experience
+      </h1>
+
+      <p class="heroText">
+        Your feedback helps us improve RiskLens and build better
+        AI-powered financial tools.
+      </p>
+
+      <!-- FEEDBACK FORM -->
+      <form method="POST" action="/reviews" class="feedbackForm">
+
+        <div class="feedbackGrid">
+
+          <div>
+            <label class="form-label">Your Name</label>
+            <input
+              class="form-control"
+              name="name"
+              placeholder="e.g. Neha"
+              required>
+          </div>
+
+          <div>
+            <label class="form-label">Role</label>
+            <input
+              class="form-control"
+              name="role"
+              placeholder="Student / Analyst / Recruiter"
+              required>
+          </div>
+
+          <div>
+            <label class="form-label">Rating</label>
+            <select class="form-select" name="rating" required>
+              <option value="5">★★★★★ Excellent</option>
+              <option value="4">★★★★☆ Very Good</option>
+              <option value="3">★★★☆☆ Good</option>
+              <option value="2">★★☆☆☆ Fair</option>
+              <option value="1">★☆☆☆☆ Poor</option>
+            </select>
+          </div>
+
+          <div></div>
+
+          <div>
+            <label class="form-label">Your Feedback</label>
+            <textarea
+              class="form-control"
+              name="message"
+              placeholder="Share your experience with RiskLens..."
+              required></textarea>
+          </div>
+
+        </div>
+
+        <button class="btnGlow" style="margin-top:34px;">
+          Submit Feedback
+        </button>
+
       </form>
     </div>
 
-    <div class="card">
-      <h3 class="heroTitle">User Feedback</h3>
-      <div class="reviewGrid">
-        {% for r in reviews %}
-          <div class="reviewCard">
-            <div class="reviewName">{{ r.name }}</div>
-            <div class="reviewMsg">{{ r.message }}</div>
-          </div>
-        {% endfor %}
+    <!-- USER REVIEWS -->
+    {% if reviews %}
+    <div class="reviewList">
+      {% for r in reviews %}
+      <div class="reviewCard">
+        <div class="reviewName">{{ r.name }}</div>
+        <div class="reviewRole">{{ r.role }}</div>
+
+        <div class="reviewStars">
+          {{ "★" * r.rating }}{{ "☆" * (5 - r.rating) }}
+        </div>
+
+        <div class="reviewText">
+          {{ r.message }}
+        </div>
       </div>
+      {% endfor %}
     </div>
+    {% endif %}
 
   </div>
 </section>
