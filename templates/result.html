@@ -1,85 +1,43 @@
 {% extends "base.html" %}
-{% set title = "LoanRiskLens • Risk Result" %}
 
 {% block content %}
 <section class="heroWrap">
   <div class="container">
 
-    <!-- RESULT CARD -->
-    <div class="glassCard result-card">
-
+    <div class="glassCard" style="max-width:900px; margin:auto;">
       <span class="pill">Risk Assessment Result</span>
 
-      <h1 class="result-status approved">
-        Approved
-      </h1>
+      <h2 class="heroTitle" style="font-size:42px; margin-top:16px;">
+        {{ "Approved" if prediction==1 else "Rejected" }}
+      </h2>
 
-      <p class="result-desc">
-        This applicant meets the model’s approval criteria.
+      <p class="heroText">
+        Model Confidence: <b>{{ confidence }}%</b>
       </p>
 
-      <div class="confidence">
-        <span>Model Confidence</span>
-        <b>{{ confidence }}%</b>
-      </div>
+      <div class="divider"></div>
 
-    </div>
+      <p class="heroText">
+        <b>Age:</b> {{ age }} <br>
+        <b>Income:</b> {{ income }} <br>
+        <b>Loan Amount:</b> {{ loan_amount }} <br>
+        <b>Credit Score:</b> {{ credit_score }} <br>
+        <b>DTI Ratio:</b> {{ dti }} <br>
+        <b>Employment:</b> {{ employment }}
+      </p>
 
-    <!-- APPLICANT METRICS -->
-    <div class="glassCard metrics-card">
-
-      <h3 class="section-title">Applicant Details</h3>
-
-      <div class="metrics-grid">
-
-        <div class="metric-card">
-          <span>Age</span>
-          <b>{{ age }}</b>
-        </div>
-
-        <div class="metric-card">
-          <span>Income</span>
-          <b>₹{{ "{:,.0f}".format(income) }}</b>
-        </div>
-
-        <div class="metric-card">
-          <span>Loan Amount</span>
-          <b>₹{{ "{:,.0f}".format(loan) }}</b>
-        </div>
-
-        <div class="metric-card">
-          <span>Credit Score</span>
-          <b>{{ credit }}</b>
-        </div>
-
-        <div class="metric-card">
-          <span>DTI Ratio</span>
-          <b>{{ dti }}</b>
-        </div>
-
-        <div class="metric-card">
-          <span>Employment</span>
-          <b>{{ employment }}</b>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- INSIGHTS -->
-    <div class="glassCard insights-card">
-
-      <h3 class="section-title">Risk Insights</h3>
-
-      <ul class="insights-list">
-        {% for insight in insights %}
-          <li>{{ insight }}</li>
+      {% if insights %}
+      <div class="divider"></div>
+      <h3>Risk Insights</h3>
+      <ul>
+        {% for i in insights %}
+          <li>{{ i }}</li>
         {% endfor %}
       </ul>
+      {% endif %}
 
-    </div>
+      <div class="divider"></div>
 
-    <!-- CTA -->
-    <div class="result-cta">
       <a href="/" class="btnGlow">Run Another Analysis</a>
     </div>
 
