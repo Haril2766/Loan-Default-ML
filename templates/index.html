@@ -4,98 +4,90 @@
 {% block content %}
 <section class="heroWrap">
   <div class="container">
+    <div class="row">
 
-    <!-- ROW -->
-    <div class="row g-5 align-items-stretch">
+      <!-- LEFT : HERO CONTENT -->
+      <div class="heroCard">
+        <div class="pill">AI Financial Advisor</div>
 
-      <!-- LEFT : HERO CARD -->
-      <div class="col-lg-6">
-        <div class="glassCard h-100">
+        <h1 class="heroTitle">
+          Smarter Financial Risk<br>
+          Decisions with AI
+        </h1>
 
-          <span class="pill">AI Financial Advisor</span>
+        <p class="heroText">
+          RiskLens is an AI-powered financial risk assessment platform designed
+          to evaluate applicant profiles using credit behavior, income stability,
+          and debt exposure — all in real time.
+        </p>
 
-          <h1 class="heroTitle">
-            Financial Risk<br>Assessment
-          </h1>
+        <p class="heroText" style="margin-top:22px;">
+          • Identify potential approval risks before decisions are made<br>
+          • Analyze credit health, income balance, and repayment capacity<br>
+          • Support responsible, data-driven financial decisions
+        </p>
 
-          <p class="heroText">
-            Analyze applicant financial risk using intelligent models that evaluate
-            credit behavior, income stability, and debt exposure in real time.
-          </p>
-
-          <ul class="text-soft mt-4">
-            <li>Multi-factor financial risk evaluation</li>
-            <li>Clear insights for responsible decision-making</li>
-            <li>Designed for modern FinTech applications</li>
-          </ul>
-
-          <p class="text-soft mt-4" style="font-size:.85rem">
-            Powered by machine learning models trained on real-world financial patterns.
-          </p>
-
-        </div>
+        <p class="heroText" style="margin-top:26px; font-size:.9rem; opacity:.8;">
+          Built using machine learning models trained on real-world financial patterns
+          to deliver accurate and explainable insights.
+        </p>
       </div>
 
-      <!-- RIGHT : FORM CARD -->
-      <div class="col-lg-6">
-        <div class="glassCard h-100">
+      <!-- RIGHT : FORM -->
+      <div class="glassCard">
+        <form action="/predict" method="POST">
 
-          <form action="/predict" method="POST">
-            <div class="row g-3">
+          <div class="row" style="grid-template-columns:1fr 1fr; gap:22px;">
 
-              <div class="col-md-6">
-                <label class="form-label">Age</label>
-                <input type="number" name="Age" class="form-control" placeholder="e.g. 28" required>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Income</label>
-                <input type="number" name="Income" class="form-control" placeholder="Monthly income (₹ / $)" required>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Loan Amount</label>
-                <input type="number" name="LoanAmount" class="form-control" placeholder="Requested loan amount" required>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Credit Score</label>
-                <input type="number" name="CreditScore" class="form-control" placeholder="e.g. 720" required>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">DTI Ratio</label>
-                <input type="number" step="0.01" name="DTIRatio" class="form-control" placeholder="e.g. 0.35" required>
-              </div>
-
-              <div class="col-md-6">
-                <label class="form-label">Education</label>
-                <select name="Education" class="form-select">
-                  {% for e in education_options %}
-                  <option value="{{ e }}">{{ e }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="col-12">
-                <label class="form-label">Employment Type</label>
-                <select name="EmploymentType" class="form-select">
-                  {% for emp in employment_options %}
-                  <option value="{{ emp }}">{{ emp }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-
-              <div class="col-12 mt-4">
-                <button type="submit" class="btnGlow w-100">
-                  Analyze Risk
-                </button>
-              </div>
-
+            <div>
+              <label class="form-label">Age</label>
+              <input class="form-control" name="Age" required>
             </div>
-          </form>
 
-        </div>
+            <div>
+              <label class="form-label">Income</label>
+              <input class="form-control" name="Income" required>
+            </div>
+
+            <div>
+              <label class="form-label">Loan Amount</label>
+              <input class="form-control" name="LoanAmount" required>
+            </div>
+
+            <div>
+              <label class="form-label">Credit Score</label>
+              <input class="form-control" name="CreditScore" required>
+            </div>
+
+            <div>
+              <label class="form-label">DTI Ratio</label>
+              <input class="form-control" name="DTIRatio" placeholder="0.35" required>
+            </div>
+
+            <div>
+              <label class="form-label">Education</label>
+              <select class="form-select" name="Education" required>
+                {% for e in education_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div>
+              <label class="form-label">Employment Type</label>
+              <select class="form-select" name="EmploymentType" required>
+                {% for e in employment_options %}
+                  <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div style="display:flex; align-items:flex-end;">
+              <button class="btnGlow" style="width:100%;">Analyze Risk</button>
+            </div>
+
+          </div>
+        </form>
       </div>
 
     </div>
