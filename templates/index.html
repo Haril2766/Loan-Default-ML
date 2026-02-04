@@ -6,7 +6,6 @@
   <div class="container">
     <div class="row">
 
-      <!-- LEFT -->
       <div class="heroCard">
         <div class="pill">AI Financial Advisor</div>
 
@@ -16,22 +15,15 @@
         </h1>
 
         <p class="heroText">
-          LoanRiskLens evaluates applicant profiles using credit behavior,
-          income stability, and debt exposure — all in real time.
-        </p>
-
-        <p class="heroText">
-          • Multi-factor loan risk analysis<br>
-          • Explainable AI decisions<br>
-          • Built for modern FinTech platforms
+          LoanRiskLens evaluates applicants using credit behavior,
+          income stability, and debt exposure in real time.
         </p>
       </div>
 
-      <!-- RIGHT -->
       <div class="glassCard">
         <form action="/predict" method="POST">
-          <div class="row" style="grid-template-columns:1fr 1fr; gap:20px;">
 
+          <div class="row" style="grid-template-columns:1fr 1fr; gap:20px;">
             <div>
               <label class="form-label">Age</label>
               <input class="form-control" name="Age" placeholder="e.g. 28" required>
@@ -39,12 +31,12 @@
 
             <div>
               <label class="form-label">Income</label>
-              <input class="form-control" name="Income" placeholder="Monthly income (₹ / $)" required>
+              <input class="form-control" name="Income" placeholder="Monthly income" required>
             </div>
 
             <div>
               <label class="form-label">Loan Amount</label>
-              <input class="form-control" name="LoanAmount" placeholder="Requested loan amount" required>
+              <input class="form-control" name="LoanAmount" placeholder="Requested loan" required>
             </div>
 
             <div>
@@ -78,8 +70,8 @@
             <div style="display:flex;align-items:flex-end;">
               <button class="btnGlow">Analyze Risk</button>
             </div>
-
           </div>
+
         </form>
       </div>
 
