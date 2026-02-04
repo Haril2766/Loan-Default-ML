@@ -1,254 +1,231 @@
-/* ===============================
-   ROOT THEME VARIABLES
-================================ */
 :root{
-  --bg0:#05070f;
-  --bg1:#0a0f24;
-  --bg2:#0b1024;
+  --bg:#05070f;
+  --bg2:#0b0f1e;
+  --card:rgba(255,255,255,.07);
 
-  --card:rgba(255,255,255,.08);
+  --text:#e5e7eb;
+  --soft:#9ca3af;
+
+  --neon1:#7c7cff;
+  --neon2:#22d3ee;
+  --neon3:#f472b6;
+
   --border:rgba(255,255,255,.14);
-
-  --text:#f8fafc;
-  --soft:rgba(255,255,255,.65);
-
-  --blue:#60a5fa;
-  --cyan:#22d3ee;
-  --green:#4ade80;
-  --red:#fb7185;
+  --shadow:0 50px 140px rgba(0,0,0,.85);
 }
 
-/* ===============================
-   GLOBAL RESET
-================================ */
+/* RESET */
 *{ box-sizing:border-box; }
-
-html,body{
-  height:100%;
-}
+html,body{ height:100%; }
 
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto;
   color:var(--text);
   background:
-    radial-gradient(900px 600px at 15% 20%, rgba(99,102,241,.28), transparent 60%),
-    radial-gradient(900px 600px at 85% 30%, rgba(34,211,238,.24), transparent 60%),
-    linear-gradient(180deg,var(--bg0),var(--bg2));
-  overflow-x:hidden;
+    radial-gradient(1200px 600px at 10% 10%, rgba(124,124,255,.35), transparent 60%),
+    radial-gradient(1200px 600px at 90% 20%, rgba(34,211,238,.25), transparent 60%),
+    radial-gradient(900px 500px at 50% 80%, rgba(244,114,182,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
 }
 
-a{ color:inherit; text-decoration:none; }
-
-/* ===============================
-   NAVBAR
-================================ */
+/* ================= HEADER ================= */
 .topbar{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(0,0,0,.45);
-  backdrop-filter:blur(14px);
+  backdrop-filter: blur(22px);
+  background:rgba(5,7,15,.75);
   border-bottom:1px solid var(--border);
+}
+
+.navWrap{
+  max-width:1400px;
+  margin:auto;
+  padding:30px 40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .brand{
   display:flex;
   align-items:center;
-  gap:10px;
-  font-weight:900;
+  gap:16px;
+  font-weight:1000;
+  font-size:1.7rem;
+  letter-spacing:.8px;
+  color:#fff;
+  text-decoration:none;
+  text-shadow:
+    0 0 20px rgba(124,124,255,.45),
+    0 0 40px rgba(34,211,238,.25);
 }
 
 .brandDot{
-  width:12px;
-  height:12px;
+  width:16px;
+  height:16px;
   border-radius:50%;
-  background:linear-gradient(135deg,var(--blue),var(--cyan));
-  box-shadow:0 0 16px rgba(34,211,238,.6);
+  background:linear-gradient(135deg,var(--neon1),var(--neon2));
+  box-shadow:
+    0 0 20px var(--neon1),
+    0 0 50px rgba(124,124,255,.8),
+    0 0 90px rgba(34,211,238,.6);
 }
 
 .navlinks a{
-  padding:10px 14px;
-  border-radius:14px;
+  margin-left:34px;
+  text-decoration:none;
   color:var(--soft);
+  font-size:1.1rem;
+  font-weight:600;
+  position:relative;
 }
 
-.navlinks a.active,
-.navlinks a:hover{
-  color:var(--text);
-  background:rgba(255,255,255,.08);
+.navlinks a:hover,
+.navlinks a.active{
+  color:#fff;
 }
 
-/* ===============================
-   PAGE + HERO
-================================ */
+.navlinks a.active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-14px;
+  height:4px;
+  border-radius:6px;
+  background:linear-gradient(90deg,var(--neon1),var(--neon2));
+  box-shadow:
+    0 0 20px rgba(124,124,255,.8),
+    0 0 40px rgba(34,211,238,.6);
+}
+
+/* ================= LAYOUT ================= */
 .page{
-  min-height:calc(100vh - 120px);
+  min-height:calc(100vh - 160px);
 }
 
 .heroWrap{
-  padding:80px 0;
+  padding:110px 0 140px;
 }
 
-.heroGrid{
+.container{
+  max-width:1400px;
+  margin:auto;
+  padding:0 32px;
+}
+
+.row{
   display:grid;
   grid-template-columns:1.1fr .9fr;
-  gap:48px;
+  gap:72px;
   align-items:center;
 }
 
-/* ===============================
-   GLASS CARD
-================================ */
+/* ================= CARDS ================= */
+.heroCard,
 .glassCard{
-  padding:32px;
-  border-radius:26px;
   background:var(--card);
+  border-radius:32px;
+  padding:44px;
   border:1px solid var(--border);
-  backdrop-filter:blur(18px);
-  box-shadow:0 40px 120px rgba(0,0,0,.6);
+  backdrop-filter: blur(22px);
+  box-shadow:var(--shadow);
 }
 
-/* ===============================
-   HERO LEFT CONTENT
-================================ */
+/* ================= TEXT ================= */
 .pill{
   display:inline-block;
-  padding:8px 16px;
+  padding:10px 18px;
   border-radius:999px;
-  font-size:.85rem;
-  background:rgba(99,102,241,.3);
-  color:#c7d2fe;
-  margin-bottom:22px;
+  background:rgba(124,124,255,.2);
+  color:#dbeafe;
+  font-weight:700;
 }
 
 .heroTitle{
-  font-size:clamp(42px,5vw,72px);
+  margin-top:20px;
+  font-size:clamp(42px,6vw,72px);
   font-weight:1000;
-  line-height:1.05;
+  line-height:1.1;
 }
 
 .heroText{
   margin-top:18px;
+  font-size:1.15rem;
   color:var(--soft);
+  max-width:52ch;
   line-height:1.7;
-  max-width:60ch;
 }
 
-.heroList{
-  margin-top:18px;
-  padding-left:18px;
-  color:var(--soft);
-}
-
-.heroList li{
-  margin-bottom:6px;
-}
-
-/* ===============================
-   FORM CARD (RIGHT)
-================================ */
-.formCard{
-  padding:32px;
-}
-
-/* Keep form compact */
-.formGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:18px;
-}
-
-.formGrid .full{
-  grid-column:1 / -1;
-}
-
-/* ===============================
-   FORMS (FIXED)
-================================ */
+/* ================= FORM ================= */
 .form-label{
+  font-size:.85rem;
   color:var(--soft);
-  font-size:.8rem;
-  margin-bottom:6px;
+  font-weight:600;
 }
 
 .form-control,
 .form-select{
   width:100%;
-  background:rgba(255,255,255,.08)!important;
-  border:1px solid var(--border)!important;
-  color:#fff!important;
-  border-radius:14px;
-  padding:14px 16px;
-}
-
-/* Prevent white dropdown bug */
-.form-select option{
-  background:#0b1024;
+  margin-top:6px;
+  padding:16px 18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid var(--border);
   color:#fff;
 }
 
-/* Placeholder */
-.form-control::placeholder{
-  color:rgba(255,255,255,.4);
-}
-
-/* Focus */
 .form-control:focus,
 .form-select:focus{
   outline:none;
-  background:rgba(255,255,255,.10)!important;
-  box-shadow:0 0 0 2px rgba(96,165,250,.4);
+  border-color:var(--neon2);
+  box-shadow:0 0 0 2px rgba(34,211,238,.35);
 }
 
-/* Autofill fix */
-input:-webkit-autofill,
-input:-webkit-autofill:focus{
-  -webkit-text-fill-color:#fff!important;
-  -webkit-box-shadow:0 0 0px 1000px #0b1024 inset!important;
-}
-
-/* ===============================
-   BUTTONS
-================================ */
+/* ================= BUTTON ================= */
 .btnGlow{
-  width:100%;
-  border:0;
-  padding:16px;
-  border-radius:18px;
+  margin-top:28px;
+  padding:18px;
+  border:none;
+  border-radius:22px;
+  background:linear-gradient(135deg,var(--neon1),var(--neon2));
+  color:#fff;
   font-weight:900;
-  background:linear-gradient(135deg,var(--blue),var(--cyan));
-  color:#020617;
-  box-shadow:0 20px 60px rgba(34,211,238,.45);
+  font-size:1.05rem;
+  cursor:pointer;
+  transition:.3s ease;
 }
 
 .btnGlow:hover{
-  transform:translateY(-1px);
-  filter:brightness(1.1);
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:
+    0 0 40px rgba(124,124,255,.6),
+    0 30px 90px rgba(34,211,238,.45);
 }
 
-/* ===============================
-   FOOTER
-================================ */
+/* ================= FOOTER ================= */
 .footer{
+  text-align:center;
+  padding:28px;
+  color:var(--soft);
   border-top:1px solid var(--border);
-  background:rgba(0,0,0,.35);
-  backdrop-filter:blur(14px);
+  background:rgba(5,7,15,.9);
 }
 
-.footSub{ color:var(--soft); }
-
-/* ===============================
-   RESPONSIVE
-================================ */
-@media(max-width:992px){
-  .heroGrid{
+/* ================= RESPONSIVE ================= */
+@media(max-width:1000px){
+  .row{
     grid-template-columns:1fr;
+    gap:48px;
   }
+
   .heroWrap{
-    padding:50px 0;
+    padding:70px 0 90px;
   }
-  .heroTitle{
-    font-size:36px;
+
+  .navlinks{
+    display:none;
   }
 }
