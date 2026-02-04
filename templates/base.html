@@ -6,57 +6,51 @@
 
   <title>{{ title if title else "LoanRiskLens • AI Financial Risk Advisor" }}</title>
 
-  <!-- Font Awesome (icons) -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-  <!-- Main CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- ================= NAVBAR ================= -->
-  <nav class="topbar">
-    <div class="navWrap">
-      <a class="brand" href="/">
-        <span class="brandDot"></span>
-        <span>LoanRiskLens</span>
-      </a>
+<nav class="topbar">
+  <div class="navWrap">
+    <a class="brand" href="/">
+      <span class="brandDot"></span>
+      <span>LoanRiskLens</span>
+    </a>
 
-      <div class="navlinks">
-        <a href="/" class="{% if request.path=='/' %}active{% endif %}">Analyze</a>
-        <a href="/about" class="{% if request.path.startswith('/about') %}active{% endif %}">About</a>
-        <a href="/reviews" class="{% if request.path.startswith('/reviews') %}active{% endif %}">Feedback</a>
-      </div>
+    <div class="navlinks">
+      <a href="/">Analyze</a>
+      <a href="/about">About</a>
+      <a href="/reviews">Feedback</a>
     </div>
-  </nav>
 
-  <!-- ================= PAGE ================= -->
-  <main class="page">
-    {% block content %}{% endblock %}
-  </main>
+    <button class="menuBtn" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="footer">
-    <div class="footerWrap">
+<div id="mobileNav">
+  <a href="/">Analyze</a>
+  <a href="/about">About</a>
+  <a href="/reviews">Feedback</a>
+</div>
 
-      <div class="footerLeft">
-        © 2026 • LoanRiskLens • AI-Powered Financial Insights
-      </div>
+<main class="page">
+  {% block content %}{% endblock %}
+</main>
 
-      <div class="footerSocial">
-        <a href="https://github.com/Haril2766" target="_blank" aria-label="GitHub">
-          <i class="fa-brands fa-github"></i>
-        </a>
-        <a href="https://linkedin.com/in/Haril-Parmar" target="_blank" aria-label="LinkedIn">
-          <i class="fa-brands fa-linkedin-in"></i>
-        </a>
-      </div>
-
+<footer class="footer">
+  <div class="footerWrap">
+    <div class="footerLeft">
+      © 2026 • LoanRiskLens • AI-Powered Financial Insights
     </div>
-  </footer>
+    <div class="footerSocial">
+      <a href="https://github.com/Haril2766" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://linkedin.com/in/Haril-Parmar" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</footer>
 
-  <!-- JS -->
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
