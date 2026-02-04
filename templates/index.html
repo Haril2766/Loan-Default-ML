@@ -4,15 +4,18 @@
 {% block content %}
 <section class="heroWrap">
   <div class="container">
+
+    <!-- ROW -->
     <div class="row g-5 align-items-stretch">
 
-      <!-- LEFT : HERO CONTENT -->
+      <!-- LEFT : HERO CARD -->
       <div class="col-lg-6">
-        <div class="glassCard heroCard h-100">
+        <div class="glassCard h-100">
+
           <span class="pill">AI Financial Advisor</span>
 
           <h1 class="heroTitle">
-            Financial Risk<br/>Assessment
+            Financial Risk<br>Assessment
           </h1>
 
           <p class="heroText">
@@ -29,6 +32,7 @@
           <p class="text-soft mt-4" style="font-size:.85rem">
             Powered by machine learning models trained on real-world financial patterns.
           </p>
+
         </div>
       </div>
 
@@ -37,7 +41,6 @@
         <div class="glassCard h-100">
 
           <form action="/predict" method="POST">
-
             <div class="row g-3">
 
               <div class="col-md-6">
@@ -69,16 +72,16 @@
                 <label class="form-label">Education</label>
                 <select name="Education" class="form-select">
                   {% for e in education_options %}
-                    <option value="{{ e }}">{{ e }}</option>
+                  <option value="{{ e }}">{{ e }}</option>
                   {% endfor %}
                 </select>
               </div>
 
-              <div class="col-md-12">
+              <div class="col-12">
                 <label class="form-label">Employment Type</label>
                 <select name="EmploymentType" class="form-select">
                   {% for emp in employment_options %}
-                    <option value="{{ emp }}">{{ emp }}</option>
+                  <option value="{{ emp }}">{{ emp }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -90,7 +93,6 @@
               </div>
 
             </div>
-
           </form>
 
         </div>
