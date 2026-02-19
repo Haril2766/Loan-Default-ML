@@ -4,69 +4,23 @@ import numpy as np
 import pandas as pd
 import os
 
-# -----------------------------
-# App setup
-# -----------------------------
 app = Flask(__name__)
 
-# -----------------------------
-# Load ML model safely
-# -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")   # <- your file name
 
-try:
-    model = joblib.load(MODEL_PATH)
-    print("✅ Model loaded successfully")
-except Exception as e:
-    model = None
-    print("❌ Model load failed:", e)
+# Load model + scaler + encoder
+model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
+scaler = joblib.load(os.path.join(BASE_DIR, "scaler.pkl"))
+encoder = joblib.load(os.path.join(BASE_DIR, "encoder.pkl"))
 
-# -----------------------------
-# Constants
-# -----------------------------
+print("✅ Model + Scaler + Encoder Loaded")
+
 EDUCATION_OPTIONS = ["High School", "Bachelor's", "Master's", "PhD"]
 EMPLOYMENT_OPTIONS = ["Full-time", "Part-time", "Self-employed", "Unemployed"]
 
-SOCIAL_LINKS = {
-    "linkedin": "https://linkedin.com/in/Haril-Parmar",
-    "github": "https://github.com/Haril2766"
-}
+def to_float(value):
+    return float(value)
 
-REVIEWS = [
-    {
-        "name": "Aarav",
-        "rating": 5,
-        "message": "Clean UI and super fast prediction. Loved it!",
-        "tag": "Student"
-    },
-    {
-        "name": "Neha",
-        "rating": 4,
-        "message": "Very smooth experience. Looks professional.",
-        "tag": "Developer"
-    }
-]
-
-# -----------------------------
-# Helpers
-# -----------------------------
-def to_float(value, field_name):
-    try:
-        v = float(value)
-        if np.isnan(v) or np.isinf(v):
-            raise ValueError
-        return v
-    except Exception:
-        raise ValueError(f"Invalid value for {field_name}")
-
-@app.context_processor
-def inject_globals():
-    return dict(social=SOCIAL_LINKS)
-
-# -----------------------------
-# Routes
-# -----------------------------
 @app.route("/")
 def home():
     return render_template(
@@ -75,69 +29,21 @@ def home():
         employment_options=EMPLOYMENT_OPTIONS
     )
 
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/reviews", methods=["GET"])
-def reviews():
-    return render_template(
-        "review.html",
-        reviews=list(reversed(REVIEWS))
-    )
-
-@app.route("/reviews", methods=["POST"])
-def add_review():
-    name = (request.form.get("name") or "Anonymous")[:40]
-    tag = (request.form.get("tag") or "User")[:30]
-    message = (request.form.get("message") or "Great project!")[:300]
-
-    try:
-        rating = int(request.form.get("rating", 5))
-    except Exception:
-        rating = 5
-
-    rating = max(1, min(5, rating))
-
-    REVIEWS.append({
-        "name": name,
-        "rating": rating,
-        "message": message,
-        "tag": tag
-    })
-
-    return redirect(url_for("reviews"))
-
-# -----------------------------
-# Prediction Route
-# -----------------------------
 @app.route("/predict", methods=["POST"])
 def predict():
-    if model is None:
-        return render_template(
-            "index.html",
-            education_options=EDUCATION_OPTIONS,
-            employment_options=EMPLOYMENT_OPTIONS,
-            error="Model not loaded on server."
-        )
 
     try:
-        age = to_float(request.form.get("Age"), "Age")
-        income = to_float(request.form.get("Income"), "Income")
-        loan_amount = to_float(request.form.get("LoanAmount"), "Loan Amount")
-        loan_term = to_float(request.form.get("LoanTerm"), "Loan Term")  # ✅ NEW
-        credit_score = to_float(request.form.get("CreditScore"), "Credit Score")
-        dti = to_float(request.form.get("DTIRatio"), "DTI Ratio")
+        age = to_float(request.form.get("Age"))
+        income = to_float(request.form.get("Income"))
+        loan_amount = to_float(request.form.get("LoanAmount"))
+        loan_term = to_float(request.form.get("LoanTerm"))
+        credit_score = to_float(request.form.get("CreditScore"))
+        dti = to_float(request.form.get("DTIRatio"))
 
         education = request.form.get("Education")
         employment = request.form.get("EmploymentType")
 
-        if education not in EDUCATION_OPTIONS:
-            raise ValueError("Please select a valid Education")
-        if employment not in EMPLOYMENT_OPTIONS:
-            raise ValueError("Please select a valid Employment Type")
-
-        # ✅ Must match model training columns EXACTLY
+        # Raw input dataframe
         X = pd.DataFrame([{
             "Age": age,
             "Income": income,
@@ -149,11 +55,15 @@ def predict():
             "EmploymentType": employment
         }])
 
-        pred = int(model.predict(X)[0])
+        # 🚨 APPLY SAME TRAINING PIPELINE
+        encoded = encoder.transform(X)
+        scaled = scaler.transform(encoded)
+
+        pred = int(model.predict(scaled)[0])
 
         try:
-            proba = float(model.predict_proba(X)[0][1])
-        except Exception:
+            proba = float(model.predict_proba(scaled)[0][1])
+        except:
             proba = None
 
         status = "Approved ✅" if pred == 0 else "Rejected ❌"
@@ -162,19 +72,10 @@ def predict():
         if proba is not None:
             confidence = round((1 - proba) * 100, 2) if pred == 0 else round(proba * 100, 2)
 
-        hints = []
-        if credit_score < 650:
-            hints.append("Low Credit Score")
-        if dti > 0.45:
-            hints.append("High DTI Ratio")
-        if income > 0 and loan_amount > income * 0.6:
-            hints.append("Loan amount is high compared to income")
-
         return render_template(
             "result.html",
             status=status,
             confidence=confidence,
-            proba=None if proba is None else round(proba * 100, 2),
             age=age,
             income=income,
             loan_amount=loan_amount,
@@ -182,18 +83,12 @@ def predict():
             credit_score=credit_score,
             dti=dti,
             education=education,
-            employment=employment,
-            hints=hints
+            employment=employment
         )
 
     except Exception as e:
-        return render_template(
-            "index.html",
-            education_options=EDUCATION_OPTIONS,
-            employment_options=EMPLOYMENT_OPTIONS,
-            error=str(e),
-            form=request.form
-        )
+        print("Prediction Error:", e)
+        return redirect("/")
 
 @app.route("/health")
 def health():
