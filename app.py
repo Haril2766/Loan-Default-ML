@@ -1,25 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import joblib
-import numpy as np
 import pandas as pd
 import os
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
-# Load model + scaler + encoder
-model = joblib.load(os.path.join(BASE_DIR, "model.pkl"))
-scaler = joblib.load(os.path.join(BASE_DIR, "scaler.pkl"))
-encoder = joblib.load(os.path.join(BASE_DIR, "encoder.pkl"))
-
-print("✅ Model + Scaler + Encoder Loaded")
+try:
+    model = joblib.load(MODEL_PATH)
+    print("✅ Pipeline Model loaded successfully")
+except Exception as e:
+    model = None
+    print("❌ Model load failed:", e)
 
 EDUCATION_OPTIONS = ["High School", "Bachelor's", "Master's", "PhD"]
 EMPLOYMENT_OPTIONS = ["Full-time", "Part-time", "Self-employed", "Unemployed"]
-
-def to_float(value):
-    return float(value)
 
 @app.route("/")
 def home():
@@ -32,63 +29,34 @@ def home():
 @app.route("/predict", methods=["POST"])
 def predict():
 
-    try:
-        age = to_float(request.form.get("Age"))
-        income = to_float(request.form.get("Income"))
-        loan_amount = to_float(request.form.get("LoanAmount"))
-        loan_term = to_float(request.form.get("LoanTerm"))
-        credit_score = to_float(request.form.get("CreditScore"))
-        dti = to_float(request.form.get("DTIRatio"))
+    if model is None:
+        return "Model failed to load"
 
-        education = request.form.get("Education")
-        employment = request.form.get("EmploymentType")
+    age = float(request.form.get("Age"))
+    income = float(request.form.get("Income"))
+    loan_amount = float(request.form.get("LoanAmount"))
+    loan_term = float(request.form.get("LoanTerm"))
+    credit_score = float(request.form.get("CreditScore"))
+    dti = float(request.form.get("DTIRatio"))
+    education = request.form.get("Education")
+    employment = request.form.get("EmploymentType")
 
-        # Raw input dataframe
-        X = pd.DataFrame([{
-            "Age": age,
-            "Income": income,
-            "LoanAmount": loan_amount,
-            "LoanTerm": loan_term,
-            "CreditScore": credit_score,
-            "DTIRatio": dti,
-            "Education": education,
-            "EmploymentType": employment
-        }])
+    X = pd.DataFrame([{
+        "Age": age,
+        "Income": income,
+        "LoanAmount": loan_amount,
+        "LoanTerm": loan_term,
+        "CreditScore": credit_score,
+        "DTIRatio": dti,
+        "Education": education,
+        "EmploymentType": employment
+    }])
 
-        # 🚨 APPLY SAME TRAINING PIPELINE
-        encoded = encoder.transform(X)
-        scaled = scaler.transform(encoded)
+    pred = int(model.predict(X)[0])
 
-        pred = int(model.predict(scaled)[0])
+    status = "Approved ✅" if pred == 0 else "Rejected ❌"
 
-        try:
-            proba = float(model.predict_proba(scaled)[0][1])
-        except:
-            proba = None
-
-        status = "Approved ✅" if pred == 0 else "Rejected ❌"
-
-        confidence = None
-        if proba is not None:
-            confidence = round((1 - proba) * 100, 2) if pred == 0 else round(proba * 100, 2)
-
-        return render_template(
-            "result.html",
-            status=status,
-            confidence=confidence,
-            age=age,
-            income=income,
-            loan_amount=loan_amount,
-            loan_term=loan_term,
-            credit_score=credit_score,
-            dti=dti,
-            education=education,
-            employment=employment
-        )
-
-    except Exception as e:
-        print("Prediction Error:", e)
-        return redirect("/")
+    return render_template("result.html", status=status)
 
 @app.route("/health")
 def health():
