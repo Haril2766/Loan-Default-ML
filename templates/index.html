@@ -23,6 +23,8 @@
 
       <!-- RIGHT FORM -->
       <div class="glassCard">
+
+        <!-- 🔥 IMPORTANT: POST FORM -->
         <form action="/predict" method="POST">
 
           <div class="row" style="grid-template-columns:1fr 1fr; gap:20px;">
@@ -30,37 +32,37 @@
             <!-- Age -->
             <div>
               <label class="form-label">Age</label>
-              <input class="form-control" name="Age" placeholder="e.g. 28" required>
+              <input type="number" step="any" class="form-control" name="Age" placeholder="e.g. 28" required>
             </div>
 
             <!-- Income -->
             <div>
               <label class="form-label">Income</label>
-              <input class="form-control" name="Income" placeholder="Monthly income" required>
+              <input type="number" step="any" class="form-control" name="Income" placeholder="Monthly income" required>
             </div>
 
             <!-- Loan Amount -->
             <div>
               <label class="form-label">Loan Amount</label>
-              <input class="form-control" name="LoanAmount" placeholder="Requested loan" required>
+              <input type="number" step="any" class="form-control" name="LoanAmount" placeholder="Requested loan" required>
             </div>
 
-            <!-- Loan Term (NEW) -->
+            <!-- Loan Term -->
             <div>
               <label class="form-label">Loan Term (Months)</label>
-              <input class="form-control" name="LoanTerm" placeholder="e.g. 36" required>
+              <input type="number" step="any" class="form-control" name="LoanTerm" placeholder="e.g. 36" required>
             </div>
 
             <!-- Credit Score -->
             <div>
               <label class="form-label">Credit Score</label>
-              <input class="form-control" name="CreditScore" placeholder="e.g. 720" required>
+              <input type="number" step="any" class="form-control" name="CreditScore" placeholder="e.g. 720" required>
             </div>
 
             <!-- DTI Ratio -->
             <div>
               <label class="form-label">DTI Ratio</label>
-              <input class="form-control" name="DTIRatio" placeholder="e.g. 0.35" required>
+              <input type="number" step="any" class="form-control" name="DTIRatio" placeholder="e.g. 0.35" required>
             </div>
 
             <!-- Education -->
@@ -83,14 +85,18 @@
               </select>
             </div>
 
-            <!-- Submit -->
+            <!-- Submit Button -->
             <div style="display:flex;align-items:flex-end;">
-              <button class="btnGlow">Analyze Risk</button>
+              <!-- 🔥 MUST HAVE type="submit" -->
+              <button type="submit" class="btnGlow">
+                Analyze Risk
+              </button>
             </div>
 
           </div>
 
         </form>
+
       </div>
 
     </div>
