@@ -13,7 +13,7 @@ app = Flask(__name__)
 # Load ML model safely
 # -----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "loan_model.pkl")
+MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")   # <- your file name
 
 try:
     model = joblib.load(MODEL_PATH)
@@ -29,11 +29,10 @@ EDUCATION_OPTIONS = ["High School", "Bachelor's", "Master's", "PhD"]
 EMPLOYMENT_OPTIONS = ["Full-time", "Part-time", "Self-employed", "Unemployed"]
 
 SOCIAL_LINKS = {
-    "linkedin": "https://www.linkedin.com/in/bhavy-soni-6123a32b0/",
-    "github": "https://github.com/Bhavy123321"
+    "linkedin": "https://linkedin.com/in/Haril-Parmar",
+    "github": "https://github.com/Haril2766"
 }
 
-# In-memory reviews
 REVIEWS = [
     {
         "name": "Aarav",
@@ -80,7 +79,6 @@ def home():
 def about():
     return render_template("about.html")
 
-# 🔹 REVIEWS PAGE (uses review.html)
 @app.route("/reviews", methods=["GET"])
 def reviews():
     return render_template(
@@ -110,7 +108,9 @@ def add_review():
 
     return redirect(url_for("reviews"))
 
-# 🔹 PREDICTION
+# -----------------------------
+# Prediction Route
+# -----------------------------
 @app.route("/predict", methods=["POST"])
 def predict():
     if model is None:
@@ -125,6 +125,7 @@ def predict():
         age = to_float(request.form.get("Age"), "Age")
         income = to_float(request.form.get("Income"), "Income")
         loan_amount = to_float(request.form.get("LoanAmount"), "Loan Amount")
+        loan_term = to_float(request.form.get("LoanTerm"), "Loan Term")  # ✅ NEW
         credit_score = to_float(request.form.get("CreditScore"), "Credit Score")
         dti = to_float(request.form.get("DTIRatio"), "DTI Ratio")
 
@@ -136,10 +137,12 @@ def predict():
         if employment not in EMPLOYMENT_OPTIONS:
             raise ValueError("Please select a valid Employment Type")
 
+        # ✅ Must match model training columns EXACTLY
         X = pd.DataFrame([{
             "Age": age,
             "Income": income,
             "LoanAmount": loan_amount,
+            "LoanTerm": loan_term,
             "CreditScore": credit_score,
             "DTIRatio": dti,
             "Education": education,
@@ -175,6 +178,7 @@ def predict():
             age=age,
             income=income,
             loan_amount=loan_amount,
+            loan_term=loan_term,
             credit_score=credit_score,
             dti=dti,
             education=education,
@@ -191,15 +195,9 @@ def predict():
             form=request.form
         )
 
-# -----------------------------
-# Health check (Railway needs this)
-# -----------------------------
 @app.route("/health")
 def health():
     return "OK", 200
 
-# -----------------------------
-# Entry point (local only)
-# -----------------------------
 if __name__ == "__main__":
     app.run()
