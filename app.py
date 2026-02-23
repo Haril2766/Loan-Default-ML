@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import joblib
 import pandas as pd
 import os
+import traceback
 
 app = Flask(__name__)
 
@@ -10,7 +11,7 @@ MODEL_PATH = os.path.join(BASE_DIR, "model.pkl")
 
 try:
     model = joblib.load(MODEL_PATH)
-    print("✅ Pipeline Model loaded successfully")
+    print("✅ Model loaded")
 except Exception as e:
     model = None
     print("❌ Model load failed:", e)
@@ -42,44 +43,56 @@ def feedback():
 def predict():
 
     if model is None:
-        return "Model failed to load"
+        return "Model not loaded properly"
 
-    age = float(request.form.get("Age"))
-    income = float(request.form.get("Income"))
-    loan_amount = float(request.form.get("LoanAmount"))
-    loan_term = float(request.form.get("LoanTerm"))
-    credit_score = float(request.form.get("CreditScore"))
-    dti = float(request.form.get("DTIRatio"))
-    education = request.form.get("Education")
-    employment = request.form.get("EmploymentType")
+    try:
+        # GET VALUES
+        age = float(request.form.get("Age"))
+        income = float(request.form.get("Income"))
+        loan_amount = float(request.form.get("LoanAmount"))
+        loan_term = float(request.form.get("LoanTerm"))
+        credit_score = float(request.form.get("CreditScore"))
+        dti = float(request.form.get("DTIRatio"))
+        education = request.form.get("Education")
+        employment = request.form.get("EmploymentType")
 
-    X = pd.DataFrame([{
-        "Age": age,
-        "Income": income,
-        "LoanAmount": loan_amount,
-        "LoanTerm": loan_term,
-        "CreditScore": credit_score,
-        "DTIRatio": dti,
-        "Education": education,
-        "EmploymentType": employment
-    }])
+        # CREATE INPUT DF
+        X = pd.DataFrame([{
+            "Age": age,
+            "Income": income,
+            "LoanAmount": loan_amount,
+            "LoanTerm": loan_term,
+            "CreditScore": credit_score,
+            "DTIRatio": dti,
+            "Education": education,
+            "EmploymentType": employment
+        }])
 
-    pred = int(model.predict(X)[0])
-    status = "Approved ✅" if pred == 0 else "Rejected ❌"
+        print("📥 INPUT DATA:\n", X)
 
-    return render_template(
-        "result.html",
-        status=status,
-        age=age,
-        income=income,
-        loan_amount=loan_amount,
-        credit_score=credit_score,
-        dti=dti,
-        education=education,
-        employment=employment,
-        confidence=None,
-        hints=None
-    )
+        # PREDICT
+        pred = int(model.predict(X)[0])
+
+        status = "Approved ✅" if pred == 0 else "Rejected ❌"
+
+        return render_template(
+            "result.html",
+            status=status,
+            age=age,
+            income=income,
+            loan_amount=loan_amount,
+            credit_score=credit_score,
+            dti=dti,
+            education=education,
+            employment=employment,
+            confidence=None,
+            hints=None
+        )
+
+    except Exception as e:
+        error_msg = traceback.format_exc()
+        print("❌ PREDICTION ERROR:\n", error_msg)
+        return f"<h2>Prediction Failed</h2><pre>{error_msg}</pre>"
 
 @app.route("/health")
 def health():
