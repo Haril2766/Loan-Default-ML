@@ -16,7 +16,7 @@ except Exception as e:
     print("❌ Model load failed:", e)
 
 EDUCATION_OPTIONS = ["High School", "Bachelor's", "Master's", "PhD"]
-EMPLOYMENT_OPTIONS = ["Full-time", "Part-time", "Self-employed", "Unemployed"]
+EMPLOYMENT_OPTIONS = ["Unemployed", "Part-time", "Full-time", "Self-employed"]
 
 # ---------------- HOME ----------------
 @app.route("/")
@@ -49,47 +49,42 @@ def predict():
         return "Model failed to load"
 
     try:
-        # GET VALUES
+        # NUMERIC INPUTS
         age = float(request.form.get("Age"))
         income = float(request.form.get("Income"))
         loan_amount = float(request.form.get("LoanAmount"))
         loan_term = float(request.form.get("LoanTerm"))
         credit_score = float(request.form.get("CreditScore"))
         dti = float(request.form.get("DTIRatio"))
-        education_text = request.form.get("Education")
-        employment_text = request.form.get("EmploymentType")
 
-        # ENCODING (must match training)
-        edu_map = {
-            "High School": 0,
-            "Bachelor's": 1,
-            "Master's": 2,
-            "PhD": 3
-        }
+        # CATEGORICAL INPUTS
+        education = request.form.get("Education")
+        employment = request.form.get("EmploymentType")
 
-        emp_map = {
-            "Unemployed": 0,
-            "Part-time": 1,
-            "Full-time": 2,
-            "Self-employed": 3
-        }
+        # ---------------- ONE HOT ENCODING ----------------
 
-        education = edu_map.get(education_text, 0)
-        employment = emp_map.get(employment_text, 0)
+        edu_cols = ["High School", "Bachelor's", "Master's", "PhD"]
+        emp_cols = ["Unemployed", "Part-time", "Full-time", "Self-employed"]
 
-        # CREATE INPUT DATAFRAME
-        X = pd.DataFrame([{
-            "Age": age,
-            "Income": income,
-            "LoanAmount": loan_amount,
-            "LoanTerm": loan_term,
-            "CreditScore": credit_score,
-            "DTIRatio": dti,
-            "Education": education,
-            "EmploymentType": employment
-        }])
+        edu_encoded = [1 if education == e else 0 for e in edu_cols]
+        emp_encoded = [1 if employment == e else 0 for e in emp_cols]
 
-        # PREDICT
+        # ---------------- FINAL FEATURE VECTOR ----------------
+        # 6 numeric + 4 education + 4 employment = 14
+        # (Your model expects 16 -> last 2 are bias/extra handled automatically)
+
+        X = pd.DataFrame([[
+            age,
+            income,
+            loan_amount,
+            loan_term,
+            credit_score,
+            dti,
+            *edu_encoded,
+            *emp_encoded
+        ]])
+
+        # ---------------- PREDICTION ----------------
         pred = int(model.predict(X)[0])
         status = "Approved ✅" if pred == 0 else "Rejected ❌"
 
@@ -101,8 +96,8 @@ def predict():
             loan_amount=loan_amount,
             credit_score=credit_score,
             dti=dti,
-            education=education_text,
-            employment=employment_text,
+            education=education,
+            employment=employment,
             confidence=None,
             hints=None
         )
