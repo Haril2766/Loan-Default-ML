@@ -26,6 +26,18 @@ def home():
         employment_options=EMPLOYMENT_OPTIONS
     )
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/reviews")
+def reviews():
+    return render_template("review.html")
+
+@app.route("/feedback", methods=["POST"])
+def feedback():
+    return render_template("review.html")
+
 @app.route("/predict", methods=["POST"])
 def predict():
 
@@ -53,14 +65,26 @@ def predict():
     }])
 
     pred = int(model.predict(X)[0])
-
     status = "Approved ✅" if pred == 0 else "Rejected ❌"
 
-    return render_template("result.html", status=status)
+    return render_template(
+        "result.html",
+        status=status,
+        age=age,
+        income=income,
+        loan_amount=loan_amount,
+        credit_score=credit_score,
+        dti=dti,
+        education=education,
+        employment=employment,
+        confidence=None,
+        hints=None
+    )
 
 @app.route("/health")
 def health():
     return "OK", 200
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
